@@ -530,6 +530,18 @@ if ( !function_exists( '_decode_banner_customer' ) ) :
     }
 endif;
 
+if ( !function_exists( '_encode_banner' ) ) :
+    function _encode_banner( int $id ) {
+        return _encode( $id, 'getmontir-banner' );
+    }
+endif;
+
+if ( !function_exists( '_decode_banner' ) ) :
+    function _decode_banner( string $hash ) {
+        return _decode( $hash, 'getmontir-banner' );
+    }
+endif;
+
 if ( !function_exists( '_encode_banner_station' ) ) :
     function _encode_banner_station( int $id ) {
         return _encode( $id, 'getmontir-banner_station' );
