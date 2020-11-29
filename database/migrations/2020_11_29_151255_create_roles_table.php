@@ -20,6 +20,8 @@ class CreateRolesTable extends Migration
             $table->text('description')->nullable();
             $table->integer('level')->default(0);
             $table->tinyInteger('is_unmanageable')->default(0);
+            $table->tinyInteger('is_end')->default(0);
+            $table->tinyInteger('is_back')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

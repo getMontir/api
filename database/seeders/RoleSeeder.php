@@ -21,6 +21,8 @@ class RoleSeeder extends Seeder
                 'slug' => 'system',
                 'level' => 99,
                 'is_unmanageable' => 1,
+                'is_back' => 1,
+                'is_end' => 0,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
@@ -29,6 +31,8 @@ class RoleSeeder extends Seeder
                 'slug' => 'admin',
                 'level' => 90,
                 'is_unmanageable' => 1,
+                'is_back' => 1,
+                'is_end' => 0,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
@@ -37,6 +41,8 @@ class RoleSeeder extends Seeder
                 'slug' => 'operator',
                 'level' => 80,
                 'is_unmanageable' => 1,
+                'is_back' => 1,
+                'is_end' => 0,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
@@ -45,6 +51,8 @@ class RoleSeeder extends Seeder
                 'slug' => 'customer',
                 'level' => 1,
                 'is_unmanageable' => 1,
+                'is_back' => 0,
+                'is_end' => 1,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
@@ -53,6 +61,8 @@ class RoleSeeder extends Seeder
                 'slug' => 'station',
                 'level' => 3,
                 'is_unmanageable' => 1,
+                'is_back' => 0,
+                'is_end' => 1,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
@@ -61,6 +71,8 @@ class RoleSeeder extends Seeder
                 'slug' => 'mechanic',
                 'level' => 2,
                 'is_unmanageable' => 1,
+                'is_back' => 0,
+                'is_end' => 1,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
