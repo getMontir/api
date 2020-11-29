@@ -470,6 +470,18 @@ if ( !function_exists( '_decode_station_service' ) ) :
     }
 endif;
 
+if ( !function_exists( '_encode_announcement' ) ) :
+    function _encode_announcement( int $id ) {
+        return _encode( $id, 'getmontir-announcement' );
+    }
+endif;
+
+if ( !function_exists( '_decode_announcement' ) ) :
+    function _decode_announcement( string $hash ) {
+        return _decode( $hash, 'getmontir-announcement' );
+    }
+endif;
+
 if ( !function_exists( '_encode_announcement_customer' ) ) :
     function _encode_announcement_customer( int $id ) {
         return _encode( $id, 'getmontir-announcement_customer' );
