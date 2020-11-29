@@ -42,4 +42,9 @@ class UserDetail extends Model
 
         return $data;
     }
+
+    public function getHashidAttribute() {
+    	return _encode_user_detail( $this->id );
+    }
+    
 }

@@ -50,4 +50,7 @@ class User extends Authenticatable
         return $this->belongsTo('App\\Models\\UserDetail', 'id', 'user_id');
     }
     
+    public function getHashidAttribute() {
+    	return _encode_user( $this->id );
+    }
 }
