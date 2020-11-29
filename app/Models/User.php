@@ -45,4 +45,9 @@ class User extends Authenticatable
         'is_document_completed' => 'boolean',
         'is_banned' => 'boolean'
     ];
+
+    public function customerDetail() {
+        return $this->belongsTo('App\\Models\\UserDetail', 'id', 'user_id');
+    }
+    
 }
