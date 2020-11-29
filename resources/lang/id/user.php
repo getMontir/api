@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'male' => 'Pria',
-    'female' => 'Wanita'
+    'male' => 'Laki - laki',
+    'female' => 'Perempuan'
 ];
