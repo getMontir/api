@@ -29,6 +29,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'verify_token',
         'remember_token',
     ];
 
@@ -39,5 +40,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_accepted' => 'boolean',
+        'is_information_completed' => 'boolean',
+        'is_document_completed' => 'boolean',
+        'is_banned' => 'boolean'
     ];
 }
