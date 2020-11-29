@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -26,6 +27,8 @@ class UserSeeder extends Seeder
                 'email' => 'gradle@getmontir.com',
                 'password' => bcrypt('admin123'),
                 'phonenumber' => '089626092565',
+                'created_at' => new Carbon(),
+                'updated_at' => new Carbon()
             ],
         ];
 
@@ -36,6 +39,8 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'user_id' => 1,
+                'created_at' => new Carbon(),
+                'updated_at' => new Carbon()
             ]
         ];
 
