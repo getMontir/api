@@ -21,6 +21,10 @@ class MechanicService extends Model
         return $this->belongsTo("App\\Models\\User", 'mechanic_id', 'id');
     }
 
+    public function service() {
+        return $this->belongsTo("App\\Models\\Service", 'service_id', 'id');
+    }
+
     public function getHashidAttribute() {
         return _encode_mechanic_service( $this->id );
     }
