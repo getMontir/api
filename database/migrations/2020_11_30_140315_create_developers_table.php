@@ -19,7 +19,7 @@ class CreateDevelopersTable extends Migration
             $table->string('dev_public_key')->nullable();
             $table->string('dev_secret_key')->nullable();
             $table->string('name')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->tinyInteger('is_enable')->default(0);
             $table->timestamps();
             $table->softDeletes();
