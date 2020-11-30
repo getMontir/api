@@ -625,3 +625,15 @@ if ( !function_exists( '_decode_mechanic_sparepart' ) ) :
         return _decode( $hash, 'getmontir-mechanic_sparepart' );
     }
 endif;
+
+if ( !function_exists( '_encode_mechanic_emergency' ) ) :
+    function _encode_mechanic_emergency( int $id ) {
+        return _encode( $id, 'getmontir-mechanic_emergency' );
+    }
+endif;
+
+if ( !function_exists( '_decode_mechanic_emergency' ) ) :
+    function _decode_mechanic_emergency( string $hash ) {
+        return _decode( $hash, 'getmontir-mechanic_emergency' );
+    }
+endif;
