@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderServicesTable extends Migration
+class CreateOrderSparepartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateOrderServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_services', function (Blueprint $table) {
+        Schema::create('order_spareparts', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('order_id');
-            $table->bigInteger('service_id')->nullable();
+            $table->bigInteger('sparepart_id')->nullable();
             $table->integer('amount')->default(0);
+            $table->integer('qty')->default(0);
             $table->integer('total_amount')->default(0);
             $table->integer('discount_amount')->default(0);
             $table->bigInteger('discount')->default(0);
@@ -34,6 +35,6 @@ class CreateOrderServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_services');
+        Schema::dropIfExists('order_spareparts');
     }
 }
