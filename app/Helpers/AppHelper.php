@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 if ( !function_exists('get_system_date_format') ) :
 
     /**
@@ -207,5 +209,98 @@ if ( !function_exists( '_format_duration' ) ) {
         $result = implode( ' ', $result );
 
         return $result;
+    }
+}
+
+if ( !function_exists('_current_language') ) :
+
+    function _current_language() {
+        if( Auth::check() ) {
+            return strtolower(Auth::user()->setting->language);
+        } else {
+            return 'id';
+        }
+    }
+endif;
+
+if ( !function_exists('_user_initial') ) {
+
+    function _user_initial( $name = '' ) {
+        if( empty($name) ) {
+            $user = Auth::user();
+            $name = $user->fullname;
+        }
+
+        $words = explode(' ', $name);
+        if (count($words) >= 2) {
+            return strtoupper(substr($words[0], 0, 1) . substr(end($words), 0, 1));
+        }
+
+        preg_match_all('#([A-Z]+)#', $name, $capitals);
+
+        if (count($capitals[1]) >= 2) {
+            return substr(implode('', $capitals[1]), 0, 2);
+        }
+
+        return strtoupper(substr($name, 0, 2));
+    }
+}
+
+if ( !function_exists('_initial') ) {
+
+    function _initial( $name ) {
+        $words = explode(' ', $name);
+        if (count($words) >= 2) {
+            return strtoupper(substr($words[0], 0, 1) . substr(end($words), 0, 1));
+        }
+
+        preg_match_all('#([A-Z]+)#', $name, $capitals);
+
+        if (count($capitals[1]) >= 2) {
+            return substr(implode('', $capitals[1]), 0, 2);
+        }
+
+        return strtoupper(substr($name, 0, 2));
+    }
+}
+
+if ( !function_exists('_announcement_types') ) {
+
+    function _announcement_types() {
+        $lang = _current_language();
+
+        if( $lang == 'en' ) {
+            $items = [
+                [
+                    'id' => 'info',
+                    'text' => 'Information'
+                ],
+                [
+                    'id' => 'warning',
+                    'text' => 'Warning'
+                ],
+                [
+                    'id' => 'danger',
+                    'text' => 'Danger'
+                ]
+            ];
+        } else {
+            $items = [
+                [
+                    'id' => 'info',
+                    'text' => 'Informasi'
+                ],
+                [
+                    'id' => 'warning',
+                    'text' => 'Peringatan'
+                ],
+                [
+                    'id' => 'danger',
+                    'text' => 'Bahaya'
+                ]
+            ];
+        }
+
+        return $items;
     }
 }
