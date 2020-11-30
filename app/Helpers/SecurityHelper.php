@@ -601,3 +601,15 @@ if ( !function_exists( '_decode_popup_mechanic' ) ) :
         return _decode( $hash, 'getmontir-popup_mechanic' );
     }
 endif;
+
+if ( !function_exists( '_encode_mechanic_service' ) ) :
+    function _encode_mechanic_service( int $id ) {
+        return _encode( $id, 'getmontir-mechanic_service' );
+    }
+endif;
+
+if ( !function_exists( '_decode_mechanic_service' ) ) :
+    function _decode_mechanic_service( string $hash ) {
+        return _decode( $hash, 'getmontir-mechanic_service' );
+    }
+endif;
