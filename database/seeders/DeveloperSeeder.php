@@ -17,21 +17,33 @@ class DeveloperSeeder extends Seeder
     {
         $data = [
         	[
-        		'name' => 'Dashboard Admin',
+                'name' => 'Dashboard Admin',
+                'scope' => serialize([
+                    'platform' => 'web',
+                    'role' => ['system', 'admin', 'operator']
+                ]),
         		'unique_id' => Str::random(60),
         		'dev_public_key' => Str::random(45) . '_' . Str::random(15),
         		'dev_secret_key' => Str::random(30) . '-' . Str::random(30),
                 'is_enable' => 1
             ],
             [
-        		'name' => 'Customer Mobile API',
+                'name' => 'Customer Mobile API',
+                'scope' => serialize([
+                    'platform' => 'android',
+                    'role' => ['customer']
+                ]),
         		'unique_id' => Str::random(60),
         		'dev_public_key' => Str::random(45) . '_' . Str::random(15),
                 'dev_secret_key' => Str::random(30) . '-' . Str::random(30),
                 'is_enable' => 1
             ],
             [
-        		'name' => 'Station & Mechanic Mobile API',
+                'name' => 'Station & Mechanic Mobile API',
+                'scope' => serialize([
+                    'platform' => 'android',
+                    'role' => ['station', 'mechanic']
+                ]),
         		'unique_id' => Str::random(60),
         		'dev_public_key' => Str::random(45) . '_' . Str::random(15),
                 'dev_secret_key' => Str::random(30) . '-' . Str::random(30),
