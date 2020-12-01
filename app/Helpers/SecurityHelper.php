@@ -482,6 +482,18 @@ if ( !function_exists( '_decode_station_sparepart' ) ) :
     }
 endif;
 
+if ( !function_exists( '_encode_station_emergency' ) ) :
+    function _encode_station_emergency( int $id ) {
+        return _encode( $id, 'getmontir-station_emergency' );
+    }
+endif;
+
+if ( !function_exists( '_decode_station_emergency' ) ) :
+    function _decode_station_emergency( string $hash ) {
+        return _decode( $hash, 'getmontir-station_emergency' );
+    }
+endif;
+
 if ( !function_exists( '_encode_announcement' ) ) :
     function _encode_announcement( int $id ) {
         return _encode( $id, 'getmontir-announcement' );
