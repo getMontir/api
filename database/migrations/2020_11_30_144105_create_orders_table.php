@@ -15,6 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('payment_method_id')->nullable();
             $table->bigInteger('station_id')->nullable();
             $table->bigInteger('mechanic_id')->nullable();
             $table->bigInteger('customer_id')->nullable();
@@ -24,7 +25,8 @@ class CreateOrdersTable extends Migration
             $table->decimal('longitude', 11, 8)->nullable();
             $table->text('address')->nullable();
             $table->text('point_note')->nullable();
-            $table->integer('total')->default(0);
+            $table->decimal('total')->default(0);
+            $table->decimal('paid')->default(0);
             $table->integer('discount_amount')->default(0);
             $table->bigInteger('discount')->default(0);
             $table->text('geocode')->nullable();
@@ -35,6 +37,8 @@ class CreateOrdersTable extends Migration
             $table->tinyInteger('is_emergency')->default(0);
             $table->tinyInteger('is_promo')->default(0);
             $table->tinyInteger('order_status')->default(0);
+            $table->text('session_data')->nullable();
+            $table->text('hash_salt')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

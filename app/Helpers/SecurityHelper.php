@@ -673,3 +673,15 @@ if ( !function_exists( '_decode_payment_method' ) ) :
         return _decode( $hash, 'getmontir-payment_method' );
     }
 endif;
+
+if ( !function_exists( '_encode_payment' ) ) :
+    function _encode_payment( int $id ) {
+        return _encode( $id, 'getmontir-payment' );
+    }
+endif;
+
+if ( !function_exists( '_decode_payment' ) ) :
+    function _decode_payment( string $hash ) {
+        return _decode( $hash, 'getmontir-payment' );
+    }
+endif;
