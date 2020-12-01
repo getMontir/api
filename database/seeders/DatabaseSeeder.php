@@ -34,5 +34,6 @@ class DatabaseSeeder extends Seeder
         $this->call( VehicleTypeSeeder::class );
         $this->call( VehicleTransmissionSeeder::class );
         $this->call( ServiceSeeder::class );
+        $this->call( PaymentMethodSeeder::class );
     }
 }

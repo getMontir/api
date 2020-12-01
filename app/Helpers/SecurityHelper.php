@@ -661,3 +661,15 @@ if ( !function_exists( '_decode_mechanic_emergency' ) ) :
         return _decode( $hash, 'getmontir-mechanic_emergency' );
     }
 endif;
+
+if ( !function_exists( '_encode_payment_method' ) ) :
+    function _encode_payment_method( int $id ) {
+        return _encode( $id, 'getmontir-payment_method' );
+    }
+endif;
+
+if ( !function_exists( '_decode_payment_method' ) ) :
+    function _decode_payment_method( string $hash ) {
+        return _decode( $hash, 'getmontir-payment_method' );
+    }
+endif;
