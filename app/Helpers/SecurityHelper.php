@@ -470,6 +470,18 @@ if ( !function_exists( '_decode_station_service' ) ) :
     }
 endif;
 
+if ( !function_exists( '_encode_station_sparepart' ) ) :
+    function _encode_station_sparepart( int $id ) {
+        return _encode( $id, 'getmontir-station_sparepart' );
+    }
+endif;
+
+if ( !function_exists( '_decode_station_sparepart' ) ) :
+    function _decode_station_sparepart( string $hash ) {
+        return _decode( $hash, 'getmontir-station_sparepart' );
+    }
+endif;
+
 if ( !function_exists( '_encode_announcement' ) ) :
     function _encode_announcement( int $id ) {
         return _encode( $id, 'getmontir-announcement' );
