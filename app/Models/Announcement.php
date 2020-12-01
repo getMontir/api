@@ -20,8 +20,8 @@ class Announcement extends Model
         'for_role_id',
         'name',
         'description',
-        'date_start',
-        'date_end',
+        'date_time_start',
+        'date_time_end',
     ];
 
     /**

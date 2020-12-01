@@ -27,14 +27,14 @@ if ( !function_exists( 'get_system_time_format' ) ) :
 
 endif;
 
-if ( !function_exists( 'get_system_date_time' ) ) :
+if ( !function_exists( 'get_system_date_time_format' ) ) :
 
     /**
      * Function to get date time format
      *
      * @return string Date Time Format
      */
-    function get_system_date_time() {
+    function get_system_date_time_format() {
         return get_system_date_format() . ' ' . get_system_time_format();
     }
 endif;
