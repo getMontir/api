@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call( SparePartBrandSeeder::class );
         $this->call( SparepartSeeder::class );
         $this->call( StationDetailSeeder::class );
+        $this->call( StationDocumentSeeder::class );
     }
 }
