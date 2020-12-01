@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call( EmergencySeeder::class );
         $this->call( SettingSeeder::class );
         $this->call( SparePartBrandSeeder::class );
+        $this->call( SparepartSeeder::class );
     }
 }
