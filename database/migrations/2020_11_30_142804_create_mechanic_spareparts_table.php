@@ -17,9 +17,13 @@ class CreateMechanicSparepartsTable extends Migration
             $table->id();
             $table->bigInteger('mechanic_id');
             $table->bigInteger('sparepart_id');
-            $table->integer('basic_price')->default(0);
+            $table->integer('gm_buy_price')->default(0);
+            $table->integer('gm_sale_price')->default(0);
+            $table->integer('buy_price')->default(0);
             $table->integer('sale_price')->default(0);
+            $table->integer('upby')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

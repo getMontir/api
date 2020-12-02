@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Grimzy\LaravelMysqlSpatial\Eloquent\SpatialTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, SpatialTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +22,9 @@ class Order extends Model
         'customer_id',
         'customer_vehicle_id',
         'reff',
-        'latitude',
-        'longitude',
+        'service_location',
+        'mechanic_location',
+        'station_location',
         'address',
         'point_note',
         'total',
@@ -66,6 +68,12 @@ class Order extends Model
     protected $dates = [
         'order_timestamp',
         'service_timestamp',
+    ];
+
+    protected $spatialFields = [
+        'service_location',
+        'mechanic_location',
+        'station_location'
     ];
 
     public function station() {

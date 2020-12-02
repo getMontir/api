@@ -47,6 +47,10 @@ class User extends Authenticatable
         'is_banned' => 'boolean'
     ];
 
+    public function attachment() {
+        return $this->belongsTo("App\\Models\\Attachment", 'picture_id', 'id');
+    }
+
     public function customerDetail() {
         return $this->belongsTo('App\\Models\\UserDetail', 'id', 'user_id');
     }

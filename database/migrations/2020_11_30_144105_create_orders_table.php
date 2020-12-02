@@ -21,10 +21,13 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('customer_id')->nullable();
             $table->bigInteger('customer_vehicle_id')->nullable();
             $table->string('reff')->nullable();
-            $table->decimal('latitude', 10, 8)->nullable();
-            $table->decimal('longitude', 11, 8)->nullable();
+            $table->point('service_location')->nullable();
+            $table->point('mechanic_location')->nullable();
+            $table->point('station_location')->nullable();
             $table->text('address')->nullable();
             $table->text('point_note')->nullable();
+            $table->decimal('distant')->default(0);
+            $table->decimal('distant_price')->default(0);
             $table->decimal('total')->default(0);
             $table->decimal('paid')->default(0);
             $table->integer('discount_amount')->default(0);
