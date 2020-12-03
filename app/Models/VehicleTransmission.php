@@ -34,6 +34,9 @@ class VehicleTransmission extends Model
         'engine_id' => 'integer',
     ];
 
+    public function scopeByTypeId( $query, $typeId ) {
+        return $query->where('type_id', $typeId);
+    }
 
     public function vehicleType()
     {

@@ -34,6 +34,10 @@ class VehicleType extends Model
         'class_id' => 'integer',
     ];
 
+    public function scopeByBrandId( $query, $brandId ) {
+        return $query->where('brand_id', $brandId);
+    }
+
     public function scopeSearch( $query, $search ) {
         return $query->where('name', 'like', "%$search%")
             ->orWhereHas('vehicleBrand', function($q) use($search) {
