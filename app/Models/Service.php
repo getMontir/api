@@ -57,6 +57,14 @@ class Service extends Model
             ->orWhere('duration_hard', 'like', '%' . $search . '%');
     }
 
+    public function scopeByTuneup( $query ) {
+        return $query->where('is_tuneup', 1);
+    }
+
+    public function scopeByPackage( $query ) {
+        return $query->where('is_package', 1);
+    }
+
     public function service()
     {
         return $this->belongsTo(\App\Models\Service::class);

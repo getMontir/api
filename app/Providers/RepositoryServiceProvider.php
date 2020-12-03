@@ -8,6 +8,8 @@ use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\CityRepository;
 use App\Repository\Eloquent\DistrictRepository;
 use App\Repository\Eloquent\ProvinceRepository;
+use App\Repository\Eloquent\ServiceCategoryRepository;
+use App\Repository\Eloquent\ServiceRepository;
 use App\Repository\Eloquent\UserRepository;
 use App\Repository\Eloquent\VehicleBrandRepository;
 use App\Repository\Eloquent\VehicleTransmissionRepository;
@@ -15,6 +17,8 @@ use App\Repository\Eloquent\VehicleTypeRepository;
 use App\Repository\Eloquent\VehicleYearRepository;
 use App\Repository\EloquentRepositoryInterface;
 use App\Repository\ProvinceRepositoryInterface;
+use App\Repository\ServiceCategoryRepoInterface;
+use App\Repository\ServiceRepoInterface;
 use App\Repository\UserRepositoryInterface;
 use App\Repository\VehicleBrandRepoInterface;
 use App\Repository\VehicleTransmissionRepoInterface;
@@ -44,6 +48,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind( VehicleTypeRepoInterface::class, VehicleTypeRepository::class );
         $this->app->bind( VehicleTransmissionRepoInterface::class, VehicleTransmissionRepository::class );
         $this->app->bind( VehicleYearRepoInterface::class, VehicleYearRepository::class );
+
+        // SERVICES
+        $this->app->bind( ServiceRepoInterface::class, ServiceRepository::class );
+        $this->app->bind( ServiceCategoryRepoInterface::class, ServiceCategoryRepository::class );
     }
 
     /**
