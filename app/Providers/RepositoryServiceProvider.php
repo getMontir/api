@@ -7,6 +7,7 @@ use App\Repository\DistrictRepositoryInterface;
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\CityRepository;
 use App\Repository\Eloquent\DistrictRepository;
+use App\Repository\Eloquent\EmergencyRepository;
 use App\Repository\Eloquent\ProvinceRepository;
 use App\Repository\Eloquent\ServiceCategoryRepository;
 use App\Repository\Eloquent\ServiceRepository;
@@ -18,6 +19,7 @@ use App\Repository\Eloquent\VehicleTransmissionRepository;
 use App\Repository\Eloquent\VehicleTypeRepository;
 use App\Repository\Eloquent\VehicleYearRepository;
 use App\Repository\EloquentRepositoryInterface;
+use App\Repository\EmergencyRepoInterface;
 use App\Repository\ProvinceRepositoryInterface;
 use App\Repository\ServiceCategoryRepoInterface;
 use App\Repository\ServiceRepoInterface;
@@ -60,6 +62,9 @@ class RepositoryServiceProvider extends ServiceProvider
         // SPARE PARTS
         $this->app->bind( SparepartRepoInterface::class, SparepartRepository::class );
         $this->app->bind( SparepartCategoryRepoInterface::class, SparepartCategoryRepository::class );
+
+        // EMERGENCY CALL
+        $this->app->bind( EmergencyRepoInterface::class, EmergencyRepository::class );
     }
 
     /**
