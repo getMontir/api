@@ -56,6 +56,18 @@ class Announcement extends Model
         return $query->where('date_time_end', '>=', $nowFormatted)->where('date_time_end', '>=', $nowFormatted);
     }
 
+    public function scopeForCustomer( $query ) {
+        return $query->where('for_role_id', 4);
+    }
+
+    public function scopeForStation( $query ) {
+        return $query->where('for_role_id', 5);
+    }
+
+    public function scopeForMechanic( $query ) {
+        return $query->where('for_role_id', 6);
+    }
+
     public function role() {
         return $this->belongsTo("App\\Models\\Role", 'for_role_id', 'id');
     }

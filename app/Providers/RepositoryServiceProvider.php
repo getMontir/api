@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repository\AnnouncementRepoInterface;
 use App\Repository\BannerRepoInterface;
 use App\Repository\CityRepositoryInterface;
 use App\Repository\DistrictRepositoryInterface;
+use App\Repository\Eloquent\AnnouncementRepository;
 use App\Repository\Eloquent\BannerRepository;
 use App\Repository\Eloquent\BaseRepository;
 use App\Repository\Eloquent\CityRepository;
@@ -72,6 +74,9 @@ class RepositoryServiceProvider extends ServiceProvider
 
         // NOTIFICATION
         $this->app->bind( NotificationRepoInterface::class, NotificationRepository::class );
+
+        // ANNOUNCEMENT
+        $this->app->bind( AnnouncementRepoInterface::class, AnnouncementRepository::class );
 
         // BANNER
         $this->app->bind( BannerRepoInterface::class, BannerRepository::class );
