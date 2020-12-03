@@ -34,6 +34,18 @@ class Banner extends Model
         'image_id' => 'integer',
     ];
 
+    public function scopeForCustomer( $query ) {
+        return $query->where('for_role_id', 4);
+    }
+
+    public function scopeForStation( $query ) {
+        return $query->where('for_role_id', 5);
+    }
+
+    public function scopeForMechanic( $query ) {
+        return $query->where('for_role_id', 6);
+    }
+
     public function scopeSearch( $query, $search ) {
         return $query->where('name', 'like', "%$search%")
             ->orWhere('description', 'like', "%$search%")
