@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CheckUpdateController;
 use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\EmergencyController;
@@ -115,7 +116,7 @@ Route::middleware('auth:sanctum')->group(function() {
         /**
          * BANNER
          */
-        Route::post('banners', function() {})->name('banner.index');
+        Route::post('banners', [ BannerController::class, 'index' ])->name('banner.index');
 
         /**
          * ===========
