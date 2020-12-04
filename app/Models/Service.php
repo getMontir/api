@@ -70,9 +70,21 @@ class Service extends Model
         return $this->belongsTo(\App\Models\Service::class);
     }
 
+    public function children() {
+        return $this->hasMany(\App\Models\Service::class, 'parent_id', 'id');
+    }
+
+    public function serviceMorphMany() {
+        return $this->morphMany(\App\Models\Service::class, 'parent', 'id');
+    }
+
+    public function parent() {
+        return $this->morphTo();
+    }
+
     public function attachment()
     {
-        return $this->belongsTo(\App\Models\Attachment::class);
+        return $this->belongsTo(\App\Models\Attachment::class)->withDefault();
     }
 
     public function categories() {

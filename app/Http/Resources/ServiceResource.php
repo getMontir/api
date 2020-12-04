@@ -28,6 +28,7 @@ class ServiceResource extends JsonResource
             'is_easy' => $this->is_easy,
             'is_medium' => $this->is_medium,
             'is_hard' => $this->is_hard,
+            'services' => ServiceResource::collection( $this->whenLoaded('children') ),
             'categories' => CategoryResource::collection( $this->whenLoaded('categories') )
         ];
     }

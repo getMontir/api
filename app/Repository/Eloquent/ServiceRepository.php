@@ -19,11 +19,19 @@ class ServiceRepository extends BaseRepository implements ServiceRepoInterface {
     }
 
     public function tuneups(): Collection {
-        return $this->model->byTuneup()->orderBy('name')->get();
+        if( _current_language() == 'en' ) {
+            return $this->model->byTuneup()->with(['children'])->orderBy('name_en')->get();
+        }
+
+        return $this->model->byTuneup()->with(['children'])->orderBy('name_id')->get();
     }
 
     public function packages(): Collection {
-        return $this->model->byPackage()->orderBy('name')->get();
+        if( _current_language() == 'en' ) {
+            return $this->model->byPackage()->orderBy('name_id')->get();
+        }
+
+        return $this->model->byPackage()->orderBy('name_id')->get();
     }
 
     public function packageDetail( string $serviceHashId ): ?Model {

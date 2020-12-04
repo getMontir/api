@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,13 +49,13 @@ Route::middleware('role')->group(function() {
         /**
          * SERVICES
          */
-        Route::get('service/tune-ups', function() {})->name('service.tuneup');
-        Route::get('service/categories', function() {})->name('service.category');
-        Route::get('service/packages', function() {})->name('service.package');
-        Route::post('service/category/list-services', function() {})->name('service.index');
-        Route::post('service/package/detail', function() {})->name('service.package.show');
-        Route::post('service/detail', function() {})->name('service.show');
-        Route::post('service/detail/spareparts', function() {})->name('service.sparepart');
+        Route::get('service/tuneups', [ ServiceController::class, 'tuneups' ])->name('service.tuneup');
+        Route::get('service/categories', [ ServiceController::class, 'categories' ])->name('service.category');
+        Route::get('service/packages', [ ServiceController::class, 'packages' ])->name('service.package');
+        Route::post('service/category/list-services', [ ServiceController::class, 'servicesByCategory' ])->name('service.index');
+        Route::post('service/package/detail', [ ServiceController::class, 'detailPackage' ])->name('service.package.show');
+        Route::post('service/detail', [ ServiceController::class, 'detail' ])->name('service.show');
+        Route::post('service/detail/spareparts', [ ServiceController::class, 'detailSpareparts' ])->name('service.sparepart');
 
         /**
          * SPARE PARTS
