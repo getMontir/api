@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckUpdateController;
+use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
@@ -79,6 +80,21 @@ Route::middleware('role')->group(function() {
 
 });
 
+Route::middleware('role:customer')->namespace('Customer')->name('customer.')->prefix('customer')->group(function() {
+            
+    /**
+     * AUTH
+     */
+    Route::post('auth', [ AuthController::class, 'auth' ])->name('auth.login');
+    Route::post('auth/social', [ AuthController::class, 'loginSocial' ])->name('auth.login.social');
+    Route::post('register', [ AuthController::class, 'register' ])->name('auth.register');
+    Route::post('register/social', [ AuthController::class, 'registerSocial' ])->name('auth.register.social');
+    Route::post('password/forgot', [ AuthController::class, 'forgotPassword' ])->name('auth.password.forgot');
+    Route::post('password/forgot/confirm', [ AuthController::class, 'confirmResetPassword' ])->name('auth.password.forgot.confirm');
+    Route::post('password/change', [ AuthController::class, 'resetPassword' ])->name('auth.password.change');
+
+});
+
 Route::middleware('auth:sanctum')->group(function() {
 
     Route::middleware('platform:android')->group(function() {
@@ -104,18 +120,7 @@ Route::middleware('auth:sanctum')->group(function() {
          * CUSTOMER
          * ===========
          */
-        Route::middleware('role:customer')->name('customer.')->prefix('customer')->group(function() {
-            
-            /**
-             * AUTH
-             */
-            Route::post('auth', function() {})->name('auth.login');
-            Route::post('auth/social', function() {})->name('auth.login.social');
-            Route::post('register', function() {})->name('auth.register');
-            Route::post('register/social', function() {})->name('auth.register.social');
-            Route::post('password/forgot', function() {})->name('auth.password.forgot');
-            Route::post('password/forgot/confirm', function() {})->name('auth.password.forgot.confirm');
-            Route::post('password/change', function() {})->name('auth.password.change');
+        Route::middleware('role:customer')->namespace('Customer')->name('customer.')->prefix('customer')->group(function() {
 
             /**
              * VEHICLE
