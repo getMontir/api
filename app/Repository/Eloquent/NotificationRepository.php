@@ -13,7 +13,7 @@ class NotificationRepository extends BaseRepository implements NotificationRepoI
     }
 
     public function all(): Collection {
-        return $this->model->notifications();
+        return $this->model->notifications;
     }
 
     public function check(): Collection {

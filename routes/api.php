@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\CheckUpdateController;
 use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\EmergencyController;
@@ -109,7 +110,7 @@ Route::middleware('auth:sanctum')->group(function() {
         /**
          * ALERT
          */
-        Route::get('alerts', function() {})->name('alert.index');
+        Route::get('alerts', [ AnnouncementController::class, 'index' ])->name('alert.index');
 
         /**
          * BANNER
