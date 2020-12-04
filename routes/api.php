@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SparepartController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -60,10 +61,10 @@ Route::middleware('role')->group(function() {
         /**
          * SPARE PARTS
          */
-        Route::get('sparepart/categories', function() {})->name('sparepart.categories');
-        Route::get('spareparts', function() {})->name('sparepart.index');
-        Route::post('sparepart/category/list-spareparts', function() {})->name('sparepart.category.index');
-        Route::post('sparepart/detail', function() {})->name('sparepart.show');
+        Route::get('sparepart/categories', [ SparepartController::class, 'categories' ])->name('sparepart.categories');
+        Route::get('spareparts', [ SparepartController::class, 'index' ])->name('sparepart.index');
+        Route::post('sparepart/category/list-spareparts', [ SparepartController::class, 'sparepartsByCategory' ])->name('sparepart.category.index');
+        Route::post('sparepart/detail', [ SparepartController::class, 'detail' ])->name('sparepart.show');
 
         /**
          * EMERGENCY CALL

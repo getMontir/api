@@ -23,6 +23,18 @@ class SparepartCategoryRepository extends BaseRepository implements SparepartCat
         return SparepartCategory::find($id);
     }
 
+    public function sparepartsByCategory( string $categoryHashId ): Collection {
+        $id = _decode_sparepart_category( $categoryHashId );
+        $finds = $this->model->byCategoryId( $id )->get();
+        $items = [];
+
+        foreach( $finds as $item ) {
+            $items[] = $item->sparepart;
+        }
+
+        return new Collection( $items );
+    }
+
     public function spareparts( string $categoryHashId ): Collection {
         $id = _decode_sparepart_category( $categoryHashId );
         try {

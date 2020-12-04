@@ -30,6 +30,9 @@ class SparepartCategory extends Model
         'sparepart_id' => 'integer',
     ];
 
+    public function scopeByCategoryId( $query, $id ) {
+        return $query->where('category_id', $id);
+    }
 
     public function category()
     {
