@@ -3,6 +3,7 @@
 use App\Http\Controllers\CheckUpdateController;
 use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\EmergencyController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
@@ -102,8 +103,8 @@ Route::middleware('auth:sanctum')->group(function() {
         /**
          * NOTIFICATION
          */
-        Route::get('notifications/check', function() {})->name('notification.check');
-        Route::post('notifications', function() {})->name('notification.index');
+        Route::get('notifications/check', [ NotificationController::class, 'check' ])->name('notification.check');
+        Route::post('notifications', [ NotificationController::class, 'all' ])->name('notification.index');
 
         /**
          * ALERT

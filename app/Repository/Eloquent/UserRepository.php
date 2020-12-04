@@ -44,7 +44,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
                 $user->tokens()->delete();
 
                 // Generate new one
-                $token = $user->createToken('auth_customer');
+                $token = $user->createToken('authToken');
 
                 Auth::setUser( $user );
                 return $token->plainTextToken;
