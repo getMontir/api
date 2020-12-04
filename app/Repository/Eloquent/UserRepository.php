@@ -2,11 +2,14 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Exceptions\UserBannedException;
 use App\Models\User;
 use App\Repository\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
@@ -30,6 +33,23 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      * @return null|string
      */
     public function loginCustomer( $email, $password ): ?string {
+        $user = $this->model->where('email', $email)->first();
+        if( !empty($user) ) {
+            if( $user->is_banned == 1 ) {
+                throw new UserBannedException();
+            }
+            
+            if( Hash::check($password, $user->password) ) {
+                // Revoke all tokens...
+                $user->tokens()->delete();
+
+                // Generate new one
+                $token = $user->createToken('auth_customer');
+
+                Auth::setUser( $user );
+                return $token->plainTextToken;
+            }
+        }
         return null;
     }
 
