@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckUpdateController;
 use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
@@ -73,8 +74,8 @@ Route::middleware('role')->group(function() {
         Route::get('emergencies', [ EmergencyController::class, 'index' ])->name('emergency.index');
     });
 
-    Route::middleware('platform:android')->get('check-update/customer', function() {})->name('check.update');
-    Route::middleware('platform:android')->get('check-update/station', function() {})->name('check.update');
+    Route::middleware('platform:android')->post('check-update/customer', [ CheckUpdateController::class, 'customer' ])->name('check.update');
+    Route::middleware('platform:android')->post('check-update/station', [ CheckUpdateController::class, 'station' ])->name('check.update');
 
 });
 
