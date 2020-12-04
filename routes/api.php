@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RegionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,11 +29,11 @@ Route::middleware('role')->group(function() {
         /**
          * REGION
          */
-        Route::get('provinces', function() {})->name('province.index');
-        Route::get('cities', function() {})->name('city.index');
-        Route::get('districts', function() {})->name('district.index');
-        Route::post('province/cities', function() {})->name('province.cities');
-        Route::post('city/districts', function() {})->name('city.districts');
+        Route::get('provinces', [ RegionController::class, 'provinces' ])->name('province.index');
+        Route::get('cities', [ RegionController::class, 'cities' ])->name('city.index');
+        Route::get('districts', [ RegionController::class, 'districts' ])->name('district.index');
+        Route::post('province/cities', [ RegionController::class, 'citiesByProvince' ])->name('province.cities');
+        Route::post('city/districts', [ RegionController::class, 'districtsByCity' ])->name('city.districts');
 
         /**
          * VEHICLE
