@@ -20,10 +20,10 @@ class ServiceRepository extends BaseRepository implements ServiceRepoInterface {
 
     public function tuneups(): Collection {
         if( _current_language() == 'en' ) {
-            return $this->model->byTuneup()->with(['children'])->orderBy('name_en')->get();
+            return $this->model->byTuneup()->with(['services'])->orderBy('name_en')->get();
         }
 
-        return $this->model->byTuneup()->with(['children'])->orderBy('name_id')->get();
+        return $this->model->byTuneup()->with(['services'])->orderBy('name_id')->get();
     }
 
     public function packages(): Collection {
@@ -44,11 +44,13 @@ class ServiceRepository extends BaseRepository implements ServiceRepoInterface {
         return Service::find($id);
     }
 
-    public function spareparts( string $serviceHashId ): Collection {
+    public function spareparts( string $serviceHashId, string $transmissionHashId ): Collection {
         $id = _decode_service( $serviceHashId );
+        $transId = _decode_vehicle_transmission( $transmissionHashId );
+
         try {
             $find = Service::findOrFail($id);
-            return $find->spareparts;
+            return $find->spareparts( $transId );
         } catch( ModelNotFoundException $e ) {
             return new Collection();
         }

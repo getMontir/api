@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class Service extends Model
 {
@@ -70,25 +71,21 @@ class Service extends Model
         return $this->belongsTo(\App\Models\Service::class);
     }
 
-    public function children() {
-        return $this->hasMany(\App\Models\Service::class, 'parent_id', 'id');
-    }
-
-    public function serviceMorphMany() {
-        return $this->morphMany(\App\Models\Service::class, 'parent', 'id');
-    }
-
-    public function parent() {
-        return $this->morphTo();
+    public function services() {
+        return $this->hasMany(\App\Models\ServiceChildren::class, 'parent_id', 'id')->orderBy('child_id');
     }
 
     public function attachment()
     {
-        return $this->belongsTo(\App\Models\Attachment::class)->withDefault();
+        return $this->belongsTo(\App\Models\Attachment::class, 'image_id', 'id')->withDefault();
     }
 
     public function categories() {
         return $this->hasMany(\App\Models\ServiceCategory::class, 'service_id' );
+    }
+
+    public function spareparts( $vehicleId ): Collection {
+        return VehicleProduct::byVehicleTransmissionId( $vehicleId )->byServiceId( $this->id )->get();
     }
 
     public function getHashidAttribute() {

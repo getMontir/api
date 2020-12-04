@@ -11,5 +11,5 @@ interface ServiceRepoInterface {
     public function packages(): Collection;
     public function packageDetail( string $serviceHashId ): ?Model;
     public function detail( string $serviceHashId ): ?Model;
-    public function spareparts( string $serviceHashId ): Collection;
+    public function spareparts( string $serviceHashId, string $transmissionHashId ): Collection;
 }

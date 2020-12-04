@@ -4,12 +4,14 @@ namespace App\Providers;
 
 use App\Repository\AnnouncementRepoInterface;
 use App\Repository\BannerRepoInterface;
+use App\Repository\CategoryRepoInterface;
 use App\Repository\CityRepositoryInterface;
 use App\Repository\CustomerVehicleRepoInterface;
 use App\Repository\DistrictRepositoryInterface;
 use App\Repository\Eloquent\AnnouncementRepository;
 use App\Repository\Eloquent\BannerRepository;
 use App\Repository\Eloquent\BaseRepository;
+use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\Eloquent\CityRepository;
 use App\Repository\Eloquent\CustomerVehicleRepository;
 use App\Repository\Eloquent\DistrictRepository;
@@ -62,6 +64,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind( VehicleTypeRepoInterface::class, VehicleTypeRepository::class );
         $this->app->bind( VehicleTransmissionRepoInterface::class, VehicleTransmissionRepository::class );
         $this->app->bind( VehicleYearRepoInterface::class, VehicleYearRepository::class );
+
+        // CATEGORY
+        $this->app->bind( CategoryRepoInterface::class, CategoryRepository::class );
 
         // SERVICES
         $this->app->bind( ServiceRepoInterface::class, ServiceRepository::class );

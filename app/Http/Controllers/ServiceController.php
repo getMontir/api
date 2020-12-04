@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ServiceResource;
 use App\Http\Resources\SparepartResource;
+use App\Repository\Eloquent\CategoryRepository;
 use App\Repository\Eloquent\ServiceCategoryRepository;
 use App\Repository\Eloquent\ServiceRepository;
 use Illuminate\Http\Request;
@@ -15,12 +16,16 @@ class ServiceController extends Controller
 
     protected $serviceCategoryRepo;
 
+    protected $categoryRepo;
+
     public function __construct(
         ServiceRepository $a,
-        ServiceCategoryRepository $b
+        ServiceCategoryRepository $b,
+        CategoryRepository $c
     ) {
         $this->serviceRepo = $a;
         $this->serviceCategoryRepo = $b;
+        $this->categoryRepo = $c;
     }
     
     public function tuneups() {
@@ -30,7 +35,9 @@ class ServiceController extends Controller
     }
 
     public function categories() {
-        // 
+        return CategoryResource::collection(
+            $this->categoryRepo->all()
+        );
     }
 
     public function packages() {
@@ -80,11 +87,12 @@ class ServiceController extends Controller
 
     public function detailSpareparts( Request $request ) {
         $request->validate([
-            'service_id' => 'required|string|min:20|max:20'
+            'service_id' => 'required|string|min:20|max:20',
+            'transmission_id' => 'required|string|min:20|max:20'
         ]);
 
         return SparepartResource::collection(
-            $this->serviceRepo->spareparts( $request->input('service_id') )
+            $this->serviceRepo->spareparts( $request->input('service_id'), $request->input('transmission_id') )
         );
     }
 
