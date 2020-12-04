@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\VehicleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
