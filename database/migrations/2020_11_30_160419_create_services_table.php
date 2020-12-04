@@ -22,12 +22,14 @@ class CreateServicesTable extends Migration
             $table->string('slug')->nullable();
             $table->integer('price')->default(0);
             $table->integer('recommendation_up')->default(0);
-            $table->tinyInteger('duration_easy')->default(0);
-            $table->tinyInteger('duration_medium')->default(0);
-            $table->tinyInteger('duration_hard')->default(0);
+            $table->integer('duration_easy')->default(0);
+            $table->integer('duration_medium')->default(0);
+            $table->integer('duration_hard')->default(0);
             $table->tinyInteger('is_easy')->default(0);
             $table->tinyInteger('is_medium')->default(0);
             $table->tinyInteger('is_hard')->default(0);
+            $table->tinyInteger('is_tuneup')->default(0);
+            $table->tinyInteger('is_package')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
