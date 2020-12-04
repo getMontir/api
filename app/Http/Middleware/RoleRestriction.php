@@ -43,6 +43,8 @@ class RoleRestriction
                         return $next($request);
                     }
                 }
+            } else {
+                return $next($request);
             }
         }
 
