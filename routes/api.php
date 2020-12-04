@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\VehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,12 +39,12 @@ Route::middleware('role')->group(function() {
         /**
          * VEHICLE
          */
-        Route::get('vehicle-brands', function() {})->name('vehicle.brand.index');
-        Route::get('vehicle-types', function() {})->name('vehicle.type.index');
-        Route::get('vehicle-transmissions', function() {})->name('vehicle.transmission.index');
-        Route::post('vehicle-brand/types', function() {})->name('vehicle.brand.types');
-        Route::post('vehicle-type/transmissions', function() {})->name('vehicle.type.tranmissions');
-        Route::post('vehicle-transmission/years', function() {})->name('vehicle.transmission.years');
+        Route::get('vehicle-brands', [ VehicleController::class, 'brands' ])->name('vehicle.brand.index');
+        Route::get('vehicle-types', [ VehicleController::class, 'types' ])->name('vehicle.type.index');
+        Route::get('vehicle-transmissions', [ VehicleController::class, 'transmissions' ])->name('vehicle.transmission.index');
+        Route::post('vehicle-brand/types', [ VehicleController::class, 'typesByBrand' ])->name('vehicle.brand.types');
+        Route::post('vehicle-type/transmissions', [ VehicleController::class, 'transmissionsByType' ])->name('vehicle.type.tranmissions');
+        Route::post('vehicle-transmission/years', [ VehicleController::class, 'yearsByTransmission' ])->name('vehicle.transmission.years');
 
         /**
          * SERVICES

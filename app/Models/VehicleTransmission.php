@@ -38,6 +38,11 @@ class VehicleTransmission extends Model
         return $query->where('type_id', $typeId);
     }
 
+    public function attachment()
+    {
+        return $this->belongsTo("App\\Models\\Attachment", 'image_id')->withDefault();
+    }
+
     public function vehicleType()
     {
         return $this->belongsTo("App\\Models\\VehicleType", 'type_id');

@@ -19,7 +19,7 @@ class VehicleTransmissionRepository extends BaseRepository implements VehicleTra
 
     public function transmissionsByType( $typeHashId ): Collection {
         $typeId = _decode_vehicle_type( $typeHashId );
-        return $this->model->byTypeId( $typeId );
+        return $this->model->byTypeId( $typeId )->get();
     }
 
 }

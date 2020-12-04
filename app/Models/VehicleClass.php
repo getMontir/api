@@ -36,7 +36,7 @@ class VehicleClass extends Model
     }
 
     public function attachment() {
-        return $this->belongsTo("App\\Models\\Attachment", 'image_id');
+        return $this->belongsTo("App\\Models\\Attachment", 'image_id')->withDefault();
     }
 
     public function getHashidAttribute() {

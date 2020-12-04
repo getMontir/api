@@ -36,7 +36,7 @@ class VehicleEngine extends Model
     }
     
     public function attachment() {
-        return $this->belongsTo("App\\Models\\Attachment", 'image_id', 'id');
+        return $this->belongsTo("App\\Models\\Attachment", 'image_id', 'id')->withDefault();
     }
 
     public function getHashidAttribute() {

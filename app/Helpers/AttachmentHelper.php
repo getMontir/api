@@ -10,6 +10,10 @@ if ( !function_exists( 'get_attachment_from_file' ) ) :
      * @return string URL Attachment
      */
     function get_attachment_from_file( Attachment $file ) {
+        if( empty($file->id) ) {
+            return null;
+        }
+
         $name = $file->filename;
         $type = ".".$file->extension;
 

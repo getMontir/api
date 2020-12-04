@@ -15,7 +15,7 @@ class VehicleTypeResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => $this->hashid,
             'image' => $this->attachment->attachmentLink,
             'name' => $this->name,
             'brand' => VehicleBrandResource::collection( $this->whenLoaded('vehicleBrand') ),
