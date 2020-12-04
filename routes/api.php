@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
@@ -69,10 +70,11 @@ Route::middleware('role')->group(function() {
         /**
          * EMERGENCY CALL
          */
-        Route::get('emergencies', function() {})->name('emergency.index');
+        Route::get('emergencies', [ EmergencyController::class, 'index' ])->name('emergency.index');
     });
 
-    Route::middleware('platform:android')->get('check-update')->name('check.update');
+    Route::middleware('platform:android')->get('check-update/customer', function() {})->name('check.update');
+    Route::middleware('platform:android')->get('check-update/station', function() {})->name('check.update');
 
 });
 

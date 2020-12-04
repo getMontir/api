@@ -18,8 +18,8 @@ class EmergencyResource extends JsonResource
             'id' => $this->hashid,
             'image' => $this->attachment->attachmentLink,
             'name' => $this->name,
-            'price' => $this->price,
-            'discount' => $this->discount
+            'price' => floatval( $this->price ),
+            'discount' => floatval( $this->discount )
         ];
     }
 }
