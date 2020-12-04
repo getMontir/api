@@ -39,6 +39,13 @@ class CustomerVehicle extends Model
         'transmission_id' => 'integer',
     ];
 
+    public function scopeByCustomerId( $query, $customerId ) {
+        return $query->where('user_id', $customerId);
+    }
+
+    public function scopeTheDefault( $query ) {
+        return $query->where('is_default', 1);
+    }
 
     public function user()
     {

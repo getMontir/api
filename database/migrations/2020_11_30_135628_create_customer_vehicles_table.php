@@ -22,6 +22,7 @@ class CreateCustomerVehiclesTable extends Migration
             $table->bigInteger('transmission_id')->nullable();
             $table->integer('vehicle_year')->nullable();
             $table->string('police_number')->nullable();
+            $table->tinyInteger('is_default')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
