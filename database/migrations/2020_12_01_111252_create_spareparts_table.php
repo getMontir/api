@@ -17,10 +17,12 @@ class CreateSparepartsTable extends Migration
             $table->id();
             $table->bigInteger('image_id')->nullable();
             $table->bigInteger('brand_id')->nullable();
-            $table->bigInteger('engine_id')->nullable();
-            $table->bigInteger('service_id')->nullable();
+            // $table->bigInteger('engine_id')->nullable();
+            // $table->bigInteger('service_id')->nullable();
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
+            $table->string('type')->nullable();
+            $table->string('unit')->nullable();
             $table->integer('price_buy')->default(0);
             $table->integer('price_sale')->default(0);
             $table->tinyInteger('duration_normal')->default(0);
