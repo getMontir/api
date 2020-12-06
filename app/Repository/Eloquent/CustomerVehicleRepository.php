@@ -4,6 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Models\CustomerVehicle;
 use App\Models\User;
+use App\Models\VehicleTransmission;
 use App\Repository\CustomerVehicleRepoInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,6 +46,19 @@ class CustomerVehicleRepository extends BaseRepository implements CustomerVehicl
     }
 
     public function create( array $data ): Model {
+        $engineId = null;
+        if( isset($data['trasmission_id'])) {
+            $findEngine = VehicleTransmission::find($data['transmission_id']);
+            if( !empty($findEngine) ) {
+                $engineId = $findEngine->engine_id;
+            }
+        }
+        $data['engine_id'] = $engineId;
+
+        if( empty($data['default']) ) {
+            $data['default'] = 0;
+        }
+
         $data = new $this->model( $data );
         $data->save();
 
@@ -59,6 +73,7 @@ class CustomerVehicleRepository extends BaseRepository implements CustomerVehicl
                 'id' => $id
             ]);
         } catch( ModelNotFoundException $e ) {
+            throw new ModelNotFoundException();
             return null;
         }
 
@@ -71,6 +86,7 @@ class CustomerVehicleRepository extends BaseRepository implements CustomerVehicl
             $find = $this->model->findOrFail( $id );
             $find->delete();
         } catch( ModelNotFoundException $e ) {
+            throw new ModelNotFoundException();
             return false;
         }
 
@@ -82,6 +98,7 @@ class CustomerVehicleRepository extends BaseRepository implements CustomerVehicl
         try {
             $find = $this->model->findOrFail( $id );
         } catch( ModelNotFoundException $e ) {
+            throw new ModelNotFoundException( $e );
             return null;
         }
 

@@ -4,12 +4,13 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CheckUpdateController;
 use App\Http\Controllers\Customer\AuthController;
+use App\Http\Controllers\Customer\VehicleController as CustomerVehicleController;
 use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
-use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VehicleController; 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -128,11 +129,12 @@ Route::middleware('auth:sanctum')->group(function() {
             /**
              * VEHICLE
              */
-            Route::get('vehicles', function() {})->name('vehicle.index');
-            Route::post('vehicle', function() {})->name('vehicle.create');
-            Route::put('vehicle/{id}', function() {})->name('vehicle.edit');
-            Route::delete('vehicle', function() {})->name('vehicle.delete');
-            Route::post('vehicle/default', function() {})->name('vehicle.default');
+            Route::get('vehicles', [ CustomerVehicleController::class, 'index' ])->name('vehicle.index');
+            Route::get('vehicle/{id}', [ CustomerVehicleController::class, 'show'])->name('vehicle.show');
+            Route::post('vehicle', [ CustomerVehicleController::class, 'store' ])->name('vehicle.create');
+            Route::put('vehicle/{id}', [ CustomerVehicleController::class, 'update'])->name('vehicle.edit');
+            Route::delete('vehicle', [ CustomerVehicleController::class, 'delete'])->name('vehicle.delete');
+            Route::post('vehicle/default', [ CustomerVehicleController::class, 'setDefault' ])->name('vehicle.default');
 
             /**
              * CHECK AVAILABILITY
@@ -168,14 +170,6 @@ Route::middleware('auth:sanctum')->group(function() {
              * Q&A
              */
             Route::post('feedback', function() {})->name('feedback.create');
-        });
-
-        /**
-         * ==================
-         * STATION & MECHANIC
-         * ==================
-         */
-        Route::middleware('role:station,mechanic')->group(function() {
         });
 
         /**
