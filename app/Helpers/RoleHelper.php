@@ -25,3 +25,12 @@ function _capability_station() {
 function _capability_mechanic() {
     return [];
 }
+
+function _api_headers(): array {
+    return [
+        'X-Requested-With' => 'XMLHttpRequest',
+        'Content-Type' => 'application/x-www-form-urlencoded',
+        'Accept' => 'application/json',
+        'X-G-Access-Token' => 'bCtgjoy3gGQHAdoyzFbduGhAGr5hQND5Fbt7ggMWNgi10_dcPBmr9cHc5tK9v'
+    ];
+}
