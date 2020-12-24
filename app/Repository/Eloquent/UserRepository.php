@@ -130,4 +130,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         return false;
     }
 
+    public function profile(): ?Model {
+        return Auth::user();
+    }
+
 }

@@ -5,8 +5,10 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CheckUpdateController;
 use App\Http\Controllers\Customer\AuthController;
 use App\Http\Controllers\Customer\VehicleController as CustomerVehicleController;
+use App\Http\Controllers\Customer\ProfileController as CustomerProfileController;
 use App\Http\Controllers\EmergencyController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
@@ -120,6 +122,11 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('banners', [ BannerController::class, 'index' ])->name('banner.index');
 
         /**
+         * PROFILE
+         */
+        Route::post('profile', [ ProfileController::class, 'profile' ])->name('profile.user');
+
+        /**
          * ===========
          * CUSTOMER
          * ===========
@@ -161,10 +168,10 @@ Route::middleware('auth:sanctum')->group(function() {
             /**
              * PROFILE
              */
-            Route::get('user', function() {})->name('profile.show');
-            Route::post('verify-email', function() {})->name('profile.verify.email');
-            Route::post('information', function() {})->name('profile.edit');
-            Route::post('change-password', function() {})->name('profile.change.password');
+            Route::get('user', [ CustomerProfileController::class, 'user' ])->name('profile.show');
+            Route::post('verify-email', [ CustomerProfileController::class, 'verify' ])->name('profile.verify.email');
+            Route::post('information', [ CustomerProfileController::class, 'update' ])->name('profile.edit');
+            Route::post('change-password', [ CustomerProfileController::class, 'password' ])->name('profile.change.password');
 
             /**
              * Q&A

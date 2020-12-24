@@ -48,7 +48,7 @@ class User extends Authenticatable
     ];
 
     public function attachment() {
-        return $this->belongsTo("App\\Models\\Attachment", 'picture_id', 'id');
+        return $this->belongsTo("App\\Models\\Attachment", 'picture_id', 'id')->withDefault();
     }
 
     public function customerDetail() {

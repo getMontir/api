@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
     {
         $this->insertUser();
         $this->insertUserDetail();
+        $this->insertCustomerDetail();
     }
 
     private function insertUser() {
@@ -30,6 +31,15 @@ class UserSeeder extends Seeder
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
             ],
+            [
+                'role_id' => 4,
+                'name' => 'Customer Test',
+                'email' => 'customer@getmontir.com',
+                'password' => bcrypt('admin123'),
+                'phonenumber' => null,
+                'created_at' => new Carbon(),
+                'updated_at' => new Carbon()
+            ]
         ];
 
         DB::table('users')->insert($data);
@@ -45,6 +55,18 @@ class UserSeeder extends Seeder
         ];
 
         DB::table('user_details')->insert($data);
+    }
+
+    private function insertCustomerDetail() {
+        $data = [
+            [
+                'user_id' => 2,
+                'created_at' => new Carbon(),
+                'updated_at' => new Carbon()
+            ]
+        ];
+
+        DB::table('customer_details')->insert($data);
     }
 
 }

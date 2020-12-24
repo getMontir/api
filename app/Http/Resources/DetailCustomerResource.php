@@ -22,9 +22,9 @@ class DetailCustomerResource extends JsonResource
             'birth_date' => $this->birth_date,
             'gender' => $this->gender,
             'address' => $this->address,
-            'province' => ProvinceResource::collection( $this->whenLoaded('province') ),
-            'city' => CityResource::collection( $this->whenLoaded('city') ),
-            'district' => DistrictResource::collection( $this->whenLoaded('district') ),
+            'province' => new ProvinceResource( $this->whenLoaded('province') ),
+            'city' => new CityResource( $this->whenLoaded('city') ),
+            'district' => new DistrictResource( $this->whenLoaded('district') ),
             'postcode' => $this->postcode,
             'vehicles' => CustomerVehicleResource::collection( $this->whenLoaded('customerVehicles') ),
         ];
