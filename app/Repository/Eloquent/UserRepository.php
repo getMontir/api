@@ -49,7 +49,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     }
 
     private function loginPayload( $role, $payload, $token, $fcmToken ): Model {
-        $user = User::where('email', $payload['email'])->first();
+        $user = User::where('email', $payload['email'])->where('role_id', $role)->first();
 
         if( empty($user) ) {
             $data = new RegisterData( $role, $payload['name'], $payload['email'], null, null, $payload['picture'] );
