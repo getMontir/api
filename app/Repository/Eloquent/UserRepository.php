@@ -47,7 +47,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
                 $token = $user->createToken('authToken');
 
                 Auth::setUser( $user );
-                return $token->plainTextToken;
+                $sanctumToken = $token->plainTextToken;
+
+                [$id, $token] = explode('|', $sanctumToken, 2);
+                return $token;
             }
         }
         return null;
