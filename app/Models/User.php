@@ -54,6 +54,10 @@ class User extends Authenticatable
     public function customerDetail() {
         return $this->belongsTo('App\\Models\\UserDetail', 'id', 'user_id');
     }
+
+    public function socials() {
+        return $this->hasMany('App\\Models\\UserSocial', 'user_id', 'id');
+    }
     
     public function getHashidAttribute() {
     	return _encode_user( $this->id );

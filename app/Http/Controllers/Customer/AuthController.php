@@ -46,11 +46,34 @@ class AuthController extends Controller
 
     public function loginSocial( Request $request ) {
         $request->validate([
-            'token' => 'required|string|max:255',
-            'fcm_token' => 'required|string|max:255',
+            'token' => 'required|string',
+            'fcm_token' => 'required|string',
             'channel' => 'required|string|in:google,facebook',
             'device' => 'required|string|in:android,os'
         ]);
+
+        $idToken = $request->input('token');
+        $fcmToken = $request->input('fcm_token');
+        $channel = $request->input('channel');
+        $deviceType = $request->input('device');
+
+        $token = null;
+
+        if( $channel == 'google' ) {
+            $token = $this->userRepo->loginGoogle( $idToken, $fcmToken, 4 );
+        }
+
+        if( $channel == 'facebook' ) {
+            $token = $this->userRepo->loginFacebook( $idToken, $fcmToken, 4 );
+        }
+
+        if( !empty($token) ) {
+            return response()->json([
+                'data' => $token
+            ]);
+        }
+
+        return abort(401);
     }
 
     public function register( Request $request ) {}
