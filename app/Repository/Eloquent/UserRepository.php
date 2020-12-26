@@ -75,7 +75,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         $sanctumToken = $token->plainTextToken;
 
         [$id, $token] = explode('|', $sanctumToken, 2);
-        var_dump($token);
         return $token;
     }
 
@@ -173,7 +172,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         }
 
         $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
-        var_dump($user);
 
         return $this->loginSocial( $user, $token, $fcmToken, "google", "android" );
     }
