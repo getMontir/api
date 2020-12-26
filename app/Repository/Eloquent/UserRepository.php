@@ -55,8 +55,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
         if( empty($user) ) {
             $data = new RegisterData( $role, $payload['name'], $payload['email'], null, null, $payload['picture'] );
-            if( $payload['email_verified'] == 'true' ) {
-                $data->emailVerified = true;
+            if( isset($payload['email_verified']) ) {
+                if( $payload['email_verified'] == 'true' ) {
+                    $data->emailVerified = true;
+                }
             }
             return $this->registerSocial(
                 $data, $token, $fcmToken, "google", "android"
