@@ -227,7 +227,7 @@ Trait AttachmentTrait {
         $uploaded_file = new UploadedFile($file, $info['basename']);
 
         $nm = $uploaded_file->getClientOriginalName();
-        $extension = $uploaded_file->getClientOriginalExtension();
+        $extension = $uploaded_file->guessExtension();
         $mime = $uploaded_file->getMimeType();
 
         $name = uniqid(time() . "_");
