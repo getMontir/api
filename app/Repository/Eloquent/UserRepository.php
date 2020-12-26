@@ -288,7 +288,7 @@ class RegisterData {
         if( filter_var($picture, FILTER_VALIDATE_URL) ) {
             $pictureId = $this->uploadFromUrl( $picture );
             if( !empty($pictureId) ) {
-                $this->pictureId = $pictureId;
+                $this->pictureId = $pictureId->id;
             }
         } else {
             $this->pictureId = $picture;
