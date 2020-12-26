@@ -147,7 +147,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
                 return $this->loginCreateToken( $user );
             }
         }
-        return null;
+        return abort(404, 'Customer not found');
     }
 
     /**
