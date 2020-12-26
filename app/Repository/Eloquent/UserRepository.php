@@ -8,6 +8,8 @@ use App\Models\UserSocial;
 use App\Repository\UserRepositoryInterface;
 use App\Traits\AttachmentTrait;
 use Carbon\Carbon;
+use Facebook\Exceptions\FacebookResponseException;
+use Facebook\Exceptions\FacebookSDKException;
 use Facebook\Facebook;
 use Google_Client;
 use Illuminate\Database\Eloquent\Model;
@@ -180,6 +182,16 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      * @return null|string
      */
     public function loginFacebook( $token, $fcmToken, $role ): ?string {
+        $client = $this->createFacebookClient();
+        try {
+            $response = $client->get('/me?fields=id,name,email',$token);
+            $payload = $response->getGraphUser();
+            var_dump($payload);
+        } catch( FacebookResponseException $e ) {
+            return abort(500, 'Graph returned an error: ' . $e->getMessage());
+        } catch( FacebookSDKException $e ) {
+            return abort(500, 'Facebook SDK returned an error: ' . $e->getMessage());
+        }
         return null;
     }
 
