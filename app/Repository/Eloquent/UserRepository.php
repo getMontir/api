@@ -185,8 +185,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         $client = $this->createFacebookClient();
         try {
             $response = $client->get('/me?fields=id,name,email',$token);
-            $payload = $response->getGraphUser();
-            var_dump($payload);
+            $fbUser = $response->getGraphUser();
+            $fbId = $fbUser['id'];
+            $name = $fbUser['name'];
+            $email = $fbUser['email'];
+
+            $pictureResponse = $client->get("$fbId/picture?height=96&redirect=0", $token);
+            $picture = $pictureResponse->getGraphNode();
+            var_dump($picture);
         } catch( FacebookResponseException $e ) {
             return abort(500, 'Graph returned an error: ' . $e->getMessage());
         } catch( FacebookSDKException $e ) {
