@@ -146,6 +146,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
             if( Hash::check($password, $user->password) ) {
                 return $this->loginCreateToken( $user );
             }
+
+            return abort(405, 'Credential wrong');
         }
         return abort(404, 'Customer not found');
     }
@@ -200,7 +202,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
                 'id' => $fbId,
                 'name' => $name,
                 'email' => $email,
-                'picture' => $pictureUrl
+                'picture' => $pictureUrl,
+                'email_verified' => 'true'
             ];
 
             $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
