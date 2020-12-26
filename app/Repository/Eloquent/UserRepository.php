@@ -184,7 +184,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     public function loginFacebook( $token, $fcmToken, $role ): ?string {
         $client = $this->createFacebookClient();
         try {
-            $response = $client->get('/me?fields=id,name,email',$token);
+            $response = $client->get('/me?fields=id,name,email,profile_pic',$token);
             $payload = $response->getGraphUser();
             var_dump($payload);
         } catch( FacebookResponseException $e ) {
