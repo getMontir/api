@@ -192,13 +192,24 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
             $pictureResponse = $client->get("$fbId/picture?height=96&redirect=0", $token);
             $picture = $pictureResponse->getGraphNode();
-            var_dump($picture);
+            $pictureUrl = $picture['url'];
+
+            $payload = [
+                'id' => $fbId,
+                'name' => $name,
+                'email' => $email,
+                'picture' => $pictureUrl
+            ];
+
+            $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
+            return $this->loginSocial( $user, $token, $fcmToken, "facebook", "android" );
         } catch( FacebookResponseException $e ) {
             return abort(500, 'Graph returned an error: ' . $e->getMessage());
         } catch( FacebookSDKException $e ) {
             return abort(500, 'Facebook SDK returned an error: ' . $e->getMessage());
         }
-        return null;
+
+        return abort(500, 'Uncatched error');
     }
 
     /**
