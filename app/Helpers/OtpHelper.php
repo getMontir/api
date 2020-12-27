@@ -42,16 +42,8 @@ function createOtpCode( $email, $user, $expiredMinutes = 5 ) {
 		'data' => json_encode($data),
  	]);
 
-	if( is_a($user, Customer::class, true) ) {
-		$otp->customer_id = $user->id;
-		$column = 'customer_id';
-	} elseif( is_a($user, Restaurant::class, true) ) {
-		$otp->restaurant_id = $user->id;
-		$column = 'restaurant_id';
-	} elseif( is_a($user, User::class, true) ) {
-		$otp->user_id = $user->id;
-		$column = 'user_id';
-	}
+	$otp->user_id = $user->id;
+	$column = 'user_id';
 
 	$otp->save();
 
