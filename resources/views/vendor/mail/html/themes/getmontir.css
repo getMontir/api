@@ -6,7 +6,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 }
 
 body {
-    background-color: #ffffff;
+    background-color: #fff5f6;
     color: #0a0836;
     height: 100%;
     hyphens: auto;
@@ -198,7 +198,7 @@ img {
 }
 
 .content-cell {
-    padding: 35px;
+    padding: 35px 0;
 }
 
 /* Buttons */
