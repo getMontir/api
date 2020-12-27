@@ -17,7 +17,7 @@
     <p>Harap diperhatikan akun yang belum diverifikasi tidak akan bisa menggunakan fasilitas dari getMontir.</p>
     <p>Jika Anda merasa tidak mendaftar di getMontir, silahkan abaikan email ini</p>
 
-    @component('mail:subcopy')
+    @component('mail::subcopy')
         <p><strong>Yours, getMontir Team</strong></p>
         <a href="mailto:support@getmontir.com">support@getmontir.com</a>
     @endcomponent
