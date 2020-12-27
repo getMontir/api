@@ -6,7 +6,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 }
 
 body {
-    background-color: #fff5f6;
+    background-color: #fff9fa;
     color: #0a0836;
     height: 100%;
     hyphens: auto;
@@ -64,7 +64,7 @@ h3 {
 }
 
 p {
-    color: #74787e;
+    color: #0a0836;
     font-size: 16px;
     line-height: 1.5em;
     margin-top: 0;
@@ -105,7 +105,7 @@ img {
 .header {
     padding: 25px 0;
     text-align: center;
-    background-color: #fff5f6;
+    background-color: #fff9fa;
 }
 
 .header a {
@@ -119,7 +119,7 @@ img {
 /* Body */
 
 .body {
-    background-color: #fff5f6;
+    background-color: #fff9fa;
     margin: 0;
     padding: 0 10px;
     width: 100%;
@@ -162,7 +162,7 @@ img {
     padding: 0;
     text-align: center;
     width: 570px;
-    background-color: #fff5f6;
+    background-color: #fff9fa;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 570px;
@@ -185,13 +185,13 @@ img {
 }
 
 .table th {
-    color: #74787e;
+    color: #0a0836;
     border-bottom: 1px solid #edeff2;
     padding-bottom: 8px;
 }
 
 .table td {
-    color: #74787e;
+    color: #0a0836;
     font-size: 15px;
     line-height: 18px;
     padding: 10px 0;
