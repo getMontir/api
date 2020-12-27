@@ -33,7 +33,7 @@ class SendEmailConfirmation
         $user = $event->user;
         if ($event->user instanceof MustVerifyEmail && ! $event->user->hasVerifiedEmail()) {
             $otp = createOtpCode( $user->email, $user );
-            Notification::send( $user, new VerifyAccount( $user, $otp, ( 60 * 24 ) ) );
+            Notification::sendNow( $user, new VerifyAccount( $user, $otp, ( 60 * 24 ) ) );
         }
     }
 }
