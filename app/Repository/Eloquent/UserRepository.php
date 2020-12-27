@@ -2,6 +2,7 @@
 
 namespace App\Repository\Eloquent;
 
+use App\Events\User\UserRegistered;
 use App\Exceptions\UserBannedException;
 use App\Models\User;
 use App\Models\UserSocial;
@@ -124,8 +125,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         if( !empty($data->pictureId) ) {
             $user->picture_id = $data->pictureId;
         }
+        $user->save();
 
         // Event User Registered
+        event(new UserRegistered($user));
 
         if( $data->roleId == 4 ) {
             // Event Customer Registered
@@ -134,8 +137,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         } elseif( $data->roleId == 6 ) {
             // Event Mechanic Registered
         }
-
-        $user->save();
 
         return $user;
     }
@@ -250,6 +251,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         $user->save();
 
         // Event User Registered
+        event(new UserRegistered($user));
 
         // Event Customer Registered
 
@@ -277,6 +279,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         $user->save();
 
         // Event User Registered
+        event(new UserRegistered($user));
 
         // Event Mechanic Registered
 

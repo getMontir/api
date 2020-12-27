@@ -685,3 +685,15 @@ if ( !function_exists( '_decode_payment' ) ) :
         return _decode( $hash, 'getmontir-payment' );
     }
 endif;
+
+if ( !function_exists( '_encode_otp' ) ) :
+    function _encode_otp( int $id ) {
+        return _encode( $id, 'getmontir-otp_code' );
+    }
+endif;
+
+if ( !function_exists( '_decode_otp' ) ) :
+    function _decode_otp( string $hash ) {
+        return _decode( $hash, 'getmontir-otp_code' );
+    }
+endif;
