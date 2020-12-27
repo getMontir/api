@@ -8,6 +8,7 @@ use App\Notifications\User\VerifyAccount;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 
 class SendEmailConfirmation
@@ -32,8 +33,9 @@ class SendEmailConfirmation
     {
         $user = $event->user;
         if ($event->user instanceof MustVerifyEmail && ! $event->user->hasVerifiedEmail()) {
-            $otp = createOtpCode( $user->email, $user );
-            Notification::sendNow( $user, new VerifyAccount( $user, $otp, ( 60 * 24 ) ) );
+            $otp = createOtpCode( $user->email, $user, ( 60 * 24 ) );
+            // Notification::sendNow( $user, new VerifyAccount( $user, $otp, ( 60 * 24 ) ) );
+            Mail::to( $user )->send( new MailVerify( $this->user, $this->otp ) );
         }
     }
 }
