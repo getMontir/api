@@ -41,7 +41,8 @@ class MailVerify extends Mailable
                 'name' => $this->user->name,
                 'email' => $this->user->email,
                 'code' => $this->otp->code,
-                'expired' => $this->otp->expired->format( get_system_date_time_format() )
+                'expired' => $this->otp->expired->format( get_system_date_time_format() ),
+                'slots' => null,
             ]);
     }
 }
