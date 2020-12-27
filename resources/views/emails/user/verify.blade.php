@@ -28,9 +28,9 @@
     @slot('footer')
         @component('mail::footer')
             {{-- © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.') --}}
-            getMontir Indonesia, PT
-            Ruko Citraland Blok D No.5, Kalijaga, 
-            Kec. Harjamukti, Kota Cirebon,
+            getMontir Indonesia, PT <br />
+            Ruko Citraland Blok D No.5, Kalijaga, <br /> 
+            Kec. Harjamukti, Kota Cirebon, <br />
             Jawa Barat, Indonesia 45144
         @endcomponent
     @endslot
