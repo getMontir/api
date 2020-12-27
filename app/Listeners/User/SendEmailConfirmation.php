@@ -4,6 +4,7 @@ namespace App\Listeners\User;
 
 use App\Events\User\UserRegistered;
 use App\Mail\User\MailVerify;
+use App\Notifications\User\VerifyAccount;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -32,7 +33,7 @@ class SendEmailConfirmation
         $user = $event->user;
         if ($event->user instanceof MustVerifyEmail && ! $event->user->hasVerifiedEmail()) {
             $otp = createOtpCode( $user->email, $user );
-            Notification::send( $user, new MailVerify( $user, $otp, ( 60 * 24 ) ) );
+            Notification::send( $user, new VerifyAccount( $user, $otp, ( 60 * 24 ) ) );
         }
     }
 }
