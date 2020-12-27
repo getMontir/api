@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Events\Customer\CustomerLoggedIn;
 use App\Exceptions\UserBannedException;
 use App\Http\Controllers\Controller;
+use App\Repository\Eloquent\RegisterData;
 use App\Repository\Eloquent\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,9 +77,52 @@ class AuthController extends Controller
         return abort(401);
     }
 
-    public function register( Request $request ) {}
+    public function register( Request $request ) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string',
+            'password' => 'required|string|min:6|confirmed'
+        ]);
 
-    public function registerSocial( Request $request ) {}
+        $data = new RegisterData(
+            4, $request->input('name'),
+            $request->input('email'),
+            $request->input('password'),
+            $request->input('phone')
+        );
+
+        $token = $this->userRepo->registerCustomer( $data );
+
+        return response()->json([
+            'data' => $token
+        ]);
+    }
+
+    public function registerSocial( Request $request ) {
+        $idToken = $request->input('token');
+        $fcmToken = $request->input('fcm_token');
+        $channel = $request->input('channel');
+        $deviceType = $request->input('device');
+
+        $token = null;
+
+        if( $channel == 'google' ) {
+            $token = $this->userRepo->registerGoogle( $idToken, $fcmToken, 4 );
+        }
+
+        if( $channel == 'facebook' ) {
+            $token = $this->userRepo->registerFacebook( $idToken, $fcmToken, 4 );
+        }
+
+        if( !empty($token) ) {
+            return response()->json([
+                'data' => $token
+            ]);
+        }
+
+        return abort(401);
+    }
 
     public function forgotPassword( Request $request ) {}
 

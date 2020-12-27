@@ -121,6 +121,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
             $data->email_verified_at = new Carbon();
         }
 
+        if( !empty($data->pictureId) ) {
+            $user->picture_id = $data->pictureId;
+        }
+
+        // Event User Registered
+
+        if( $data->roleId == 4 ) {
+            // Event Customer Registered
+        } elseif( $data->roleId == 5 ) {
+            // Event Stataion Registered
+        } elseif( $data->roleId == 6 ) {
+            // Event Mechanic Registered
+        }
+
         $user->save();
 
         return $user;
@@ -220,29 +234,106 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     /**
      * @return null|string
      */
-    public function registerCustomer(...$data): ?string {
-        return null;
+    public function registerCustomer( RegisterData $data ): ?string {
+        $user = new User();
+        $user->role_id = $data->roleId;
+        $user->role_id = $data->roleId;
+        $user->picture_id = $data->pictureId;
+        $user->name = $data->name;
+        $user->email = $data->email;
+        $user->password = $data->password;
+        $user->phonenumber = $data->phone;
+
+        if( !empty($data->pictureId) ) {
+            $user->picture_id = $data->pictureId;
+        }
+        $user->save();
+
+        // Event User Registered
+
+        // Event Customer Registered
+
+        $token = $this->loginCreateToken( $user );
+
+        return $token;
     }
 
     /**
      * @return null|string
      */
-    public function registerMechanic(...$data): ?string {
-        return null;
+    public function registerMechanic( RegisterData $data ): ?string {
+        $user = new User();
+        $user->role_id = $data->roleId;
+        $user->role_id = $data->roleId;
+        $user->picture_id = $data->pictureId;
+        $user->name = $data->name;
+        $user->email = $data->email;
+        $user->password = $data->password;
+        $user->phonenumber = $data->phone;
+
+        if( !empty($data->pictureId) ) {
+            $user->picture_id = $data->pictureId;
+        }
+        $user->save();
+
+        // Event User Registered
+
+        // Event Mechanic Registered
+
+        $token = $this->loginCreateToken( $user );
+
+        return $token;
     }
 
     /**
      * @return null|string
      */
-    public function registerGoogle( $token ): ?string {
-        return null;
+    public function registerGoogle( $token, $fcmToken, $role ): ?string {
+        $client = $this->createGoogleClient();
+        $payload = $client->verifyIdToken( $token );
+
+        if( !$payload ) {
+            return abort(401, "Invalid credential from google");
+        }
+
+        $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
+
+        return $this->loginSocial( $user, $token, $fcmToken, "google", "android" );
     }
 
     /**
      * @return null|string
      */
-    public function registerFacebook( $token ): ?string {
-        return null;
+    public function registerFacebook( $token, $fcmToken, $role ): ?string {
+        $client = $this->createFacebookClient();
+        try {
+            $response = $client->get('/me?fields=id,name,email',$token);
+            $fbUser = $response->getGraphUser();
+            $fbId = $fbUser['id'];
+            $name = $fbUser['name'];
+            $email = $fbUser['email'];
+
+            $pictureResponse = $client->get("$fbId/picture?height=96&redirect=0", $token);
+            $picture = $pictureResponse->getGraphNode();
+            $pictureUrl = $picture['url'];
+
+            $payload = [
+                'id' => $fbId,
+                'name' => $name,
+                'email' => $email,
+                'picture' => $pictureUrl,
+                'email_verified' => 'true'
+            ];
+
+            $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
+            return $this->loginSocial( $user, $token, $fcmToken, "facebook", "android" );
+        } catch( FacebookResponseException $e ) {
+            return abort(500, 'Graph returned an error: ' . $e->getMessage());
+        } catch( FacebookSDKException $e ) {
+            return abort(500, 'Facebook SDK returned an error: ' . $e->getMessage());
+        }
+
+        return abort(500, 'Uncatched error');
     }
 
     /**
