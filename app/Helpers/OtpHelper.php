@@ -26,7 +26,7 @@ if( !function_exists('generateOtpString') ) {
     }
 }
 
-function createOtpCode( $email, $user, $expiredMinutes = 5 ) {
+function createOtpCode( $email, $user, $type, $expiredMinutes = 5 ) {
 	$column = '';
 
 	$now = Carbon::now();
@@ -43,7 +43,9 @@ function createOtpCode( $email, $user, $expiredMinutes = 5 ) {
  	]);
 
 	$otp->user_id = $user->id;
-	$column = 'user_id';
+    $column = 'user_id';
+    
+    $otp->type = $type;
 
 	$otp->save();
 
