@@ -34,9 +34,9 @@ class MailVerify extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.user.verify')
-            ->from('no-reply@getmontir.com', 'Account getMontir')
+        return $this->from('no-reply@getmontir.com', 'Account getMontir')
             ->subject('Kode Verifikasi Akun Anda')
+            ->markdown('emails.user.verify')
             ->with([
                 'name' => $this->user->name,
                 'email' => $this->user->email,
