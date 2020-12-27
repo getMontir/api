@@ -7,7 +7,7 @@ body, body *:not(html):not(style):not(br):not(tr):not(code) {
 
 body {
     background-color: #ffffff;
-    color: #74787e;
+    color: #0a0836;
     height: 100%;
     hyphens: auto;
     line-height: 1.4;
@@ -120,10 +120,8 @@ img {
 
 .body {
     background-color: #fff5f6;
-    border-bottom: 1px solid #edeff2;
-    border-top: 1px solid #edeff2;
     margin: 0;
-    padding: 0;
+    padding: 0 10px;
     width: 100%;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
@@ -135,6 +133,7 @@ img {
     margin: 0 auto;
     padding: 0;
     width: 570px;
+    border-radius: 10px;
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 570px;
@@ -148,8 +147,12 @@ img {
     padding-top: 25px;
 }
 
-.subcopy p {
+.subcopy * {
     font-size: 12px;
+}
+
+.subcopy p {
+    margin: 0;
 }
 
 /* Footer */
@@ -298,3 +301,10 @@ img {
     font-size: 12px;
     color: #656a72;
 }
+
+/* @media only screen and (max-width: 600px) {
+    .body {
+        border-bottom: 1px solid #edeff2;
+        border-top: 1px solid #edeff2;
+    }
+} */
