@@ -8,14 +8,13 @@
 
     {{-- Body --}}
     <h1>As-salamu alaykum <a href="mailto:{{ $email }}">{{ $name }}</a>!</h1>
-    <p>Terima kasih telah mendaftar di getMontir!</p>
-    <p>Untuk verifikasi akun Anda, silahkan masukan kode berikut di aplikasi getMontir.</p>
+    <p>Anda menerima email ini dikarenakan Anda meminta untuk dilakukan pengaturan ulang kata sandi.</p>
+    <p>Untuk verifikasi pengaturan ulang kata sandi Anda, silahkan masukan kode berikut di aplikasi getMontir.</p>
     <div class="action">
         <h1 class="big">{{ $code }}</h1>
         <p class="text-small">Habis pada: <strong>{{ $expired }}</strong></p>
     </div>
-    <p>Harap diperhatikan akun yang belum diverifikasi tidak akan bisa menggunakan fasilitas dari getMontir.</p>
-    <p>Jika Anda merasa tidak mendaftar di getMontir, silahkan abaikan email ini</p>
+    <p>Jika Anda merasa tidak melakukan permintaan pengaturan ulang kata sandi di aplikasi getMontir, silahkan abaikan email ini</p>
 
     @slot('subcopy')
         @component('mail::subcopy')

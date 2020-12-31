@@ -31,7 +31,9 @@ class PasswordBroker extends BasePasswordsBroker {
         $token = null;
         if(!is_null($user)) {
             $token = $this->tokens->create($user);
-            $user->sendPasswordResetNotification($token);
+            $otp = $this->tokens->getOtp($user);
+            $expired = $this->tokens->getExpired($user);
+            $user->sendPasswordResetNotificationOtp($otp, $expired);
         }
 
         return new PasswordResetContract( static::RESET_LINK_SENT, $token );

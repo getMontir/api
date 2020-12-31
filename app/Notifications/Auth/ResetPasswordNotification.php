@@ -4,6 +4,7 @@ namespace App\Notifications\Auth;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
@@ -18,6 +19,17 @@ class ResetPasswordNotification extends Notification
      * @var string
      */
     public $token;
+
+    public $name;
+
+    /**
+     * The password reset otp
+     * 
+     * @var string
+     */
+    public $otp;
+
+    public $expired;
 
     /**
      * The callback that should be used to create the reset password URL.
@@ -38,9 +50,11 @@ class ResetPasswordNotification extends Notification
      *
      * @return void
      */
-    public function __construct($token)
+    public function __construct($name, $otp, $expired)
     {
-        $this->token = $token;
+        $this->name = $name;
+        $this->otp = $otp;
+        $this->expired = $expired;
     }
 
     /**
@@ -66,21 +80,15 @@ class ResetPasswordNotification extends Notification
             return call_user_func(static::$toMailCallback, $notifiable, $this->token);
         }
 
-        if (static::$createUrlCallback) {
-            $url = call_user_func(static::$createUrlCallback, $notifiable, $this->token);
-        } else {
-            $url = url(route('index', [
-                'token' => $this->token,
-                'email' => $notifiable->getEmailForPasswordReset(),
-            ], false));
-        }
-
         return (new MailMessage)
+            ->from('no-reply@getmontir.com', 'Account getMontir')
             ->subject(Lang::get('Reset Password Notification'))
-            ->line(Lang::get('You are receiving this email because we received a password reset request for your account.'))
-            ->action(Lang::get('Reset Password'), $url)
-            ->line(Lang::get('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')]))
-            ->line(Lang::get('If you did not request a password reset, no further action is required.'));
+            ->markdown('emails.user.reset', [
+                'name' => $this->name,
+                'email' => $notifiable->getEmailForPasswordReset(),
+                'code' => $this->otp,
+                'expired' => $this->expired->format( get_system_date_time_format() ),
+            ]);
     }
 
     /**

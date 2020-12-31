@@ -41,20 +41,46 @@ class DatabaseTokenRepository extends DatabaseTokenRepositoryBase {
     }
 
     public function exists(CanResetPasswordContract $user, $token) {
-        $record = (array) $this->getTable()
-            ->where('email', $user->getEmailForPasswordReset())
-            ->first();
+        $record = $this->getRecord($user);
         return $record &&
                ! $this->tokenExpired($record['created_at']) &&
                  $this->hasher->check($token, $record['token']);
     }
 
     public function otpExists(CanResetPasswordContract $user, $otp) {
-        $record = (array) $this->getTable()
-            ->where('email', $user->getEmailForPasswordReset())
-            ->first();
+        $record = $this->getRecord($user);
         return $record
                 && ! $this->tokenExpired($record['created_at'])
                 && $otp == $record['otp'];
+    }
+
+    public function getOtp(CanResetPasswordContract $user) {
+        $record = $this->getRecord( $user );
+        
+        if( $record ) {
+            return $record['otp'];
+        }
+
+        return null;
+    }
+
+    public function getExpired(CanResetPasswordContract $user) {
+        $record = $this->getRecord($user);
+
+        if( $record ) {
+            $date = Carbon::parse($record['created_at']);
+            $date->addMinutes(
+                config('auth.passwords.'.config('auth.defaults.passwords').'.expire')
+            );
+            return $date;
+        }
+
+        return null;
+    }
+
+    protected function getRecord(CanResetPasswordContract $user) {
+        return (array) $this->getTable()
+            ->where('email', $user->getEmailForPasswordReset())
+            ->first();
     }
 }

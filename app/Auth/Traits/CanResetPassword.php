@@ -24,6 +24,10 @@ trait CanResetPassword
      */
     public function sendPasswordResetNotification($token)
     {
-        $this->notify(new ResetPasswordNotification($token));
+        $this->notify(new ResetPasswordNotification($this->name, $token, null));
+    }
+
+    public function sendPasswordResetNotificationOtp( $otp, $expired ) {
+        $this->notify(new ResetPasswordNotification( $this->name, $otp, $expired) );
     }
 }
