@@ -136,7 +136,33 @@ class AuthController extends Controller
                 : abort(404);
     }
 
-    public function confirmResetPassword( Request $request ) {}
+    public function confirmResetPassword( Request $request ) {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'token' => 'required|string',
+            'otp' => 'required|numeric|digits:4'
+        ]);
+
+        $user = Password::getUser( $request->only('email') );
+        if( is_null($user) ) {
+            return abort(401);
+        }
+
+        if( !Password::tokenExists( $user, $request->input('token')) ) {
+            return abort(400);
+        }
+
+        if( !Password::otpExists( $user, $request->input('otp') ) ) {
+            return abort(404);
+        }
+
+        // $token = Password::createToken( $user );
+        $token = $request->input('token');
+
+        return response()->json([
+            'data' => $token
+        ]);
+    }
 
     public function resetPassword( Request $request ) {}
 
