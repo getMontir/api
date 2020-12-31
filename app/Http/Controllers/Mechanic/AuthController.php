@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mechanic;
 use App\Events\Mechanic\MechanicLoggedIn;
 use App\Exceptions\UserBannedException;
 use App\Http\Controllers\Controller;
+use App\Repository\Eloquent\RegisterData;
 use App\Repository\Eloquent\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -73,7 +74,27 @@ class AuthController extends Controller
         return abort(401);
     }
 
-    public function register( Request $request ) {}
+    public function register( Request $request ) {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string|unique:users,phonenumber',
+            'password' => 'required|string|min:6|confirmed'
+        ]);
+
+        $data = new RegisterData(
+            6, $request->input('name'),
+            $request->input('email'),
+            $request->input('password'),
+            $request->input('phone')
+        );
+
+        $token = $this->userRepo->registerMechanic( $data );
+
+        return response()->json([
+            'data' => $token
+        ]);
+    }
 
     public function registerSocial( Request $request ) {}
 
