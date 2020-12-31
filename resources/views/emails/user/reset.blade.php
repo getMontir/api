@@ -8,13 +8,13 @@
 
     {{-- Body --}}
     <h1>As-salamu alaykum <a href="mailto:{{ $email }}">{{ $name }}</a>!</h1>
-    <p>Anda menerima email ini dikarenakan Anda meminta untuk dilakukan pengaturan ulang kata sandi.</p>
-    <p>Untuk verifikasi pengaturan ulang kata sandi Anda, silahkan masukan kode berikut di aplikasi getMontir.</p>
+    <p>{{ __('auth.reset.info') }}</p>
+    <p>{{ __('auth.reset.verify') }}</p>
     <div class="action">
         <h1 class="big">{{ $code }}</h1>
-        <p class="text-small">Habis pada: <strong>{{ $expired }}</strong></p>
+        <p class="text-small">{!! __('auth.confirm.expired', ['expired' => $expired]) !!}</p>
     </div>
-    <p>Jika Anda merasa tidak melakukan permintaan pengaturan ulang kata sandi di aplikasi getMontir, silahkan abaikan email ini</p>
+    <p>{{ __('auth.reset.ignore') }}</p>
 
     @slot('subcopy')
         @component('mail::subcopy')

@@ -8,14 +8,14 @@
 
     {{-- Body --}}
     <h1>As-salamu alaykum <a href="mailto:{{ $email }}">{{ $name }}</a>!</h1>
-    <p>Terima kasih telah mendaftar di getMontir!</p>
-    <p>Untuk verifikasi akun Anda, silahkan masukan kode berikut di aplikasi getMontir.</p>
+    <p>{{ __('auth.confirm.thank') }}</p>
+    <p>{{ __('auth.confirm.verify') }}</p>
     <div class="action">
         <h1 class="big">{{ $code }}</h1>
-        <p class="text-small">Habis pada: <strong>{{ $expired }}</strong></p>
+        <p class="text-small">{!! __('auth.confirm.expired', ['expired' => $expired]) !!}</p>
     </div>
-    <p>Harap diperhatikan akun yang belum diverifikasi tidak akan bisa menggunakan fasilitas dari getMontir.</p>
-    <p>Jika Anda merasa tidak mendaftar di getMontir, silahkan abaikan email ini</p>
+    <p>{{ __('auth.confirm.important') }}</p>
+    <p>{{ __('auth.confirm.ignore') }}</p>
 
     @slot('subcopy')
         @component('mail::subcopy')
