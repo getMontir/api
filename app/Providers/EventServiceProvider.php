@@ -26,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Station\Auth\CreateDatabaseLog',
             'App\Listeners\Station\Auth\SendMailLog',
         ],
+        'App\Events\Mechanic\MechanicLoggedIn' => [
+            'App\Listeners\Mechanic\Auth\CreateDatabaseLog',
+            'App\Listeners\Mechanic\Auth\SendMailLog',
+        ],
         'App\Events\User\UserRegistered' => [
             'App\Listeners\User\AddDetail',
             'App\Listeners\User\SendEmailConfirmation'
