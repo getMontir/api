@@ -51,19 +51,21 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
         return $client;    
     }
 
-    private function loginPayload( $role, $payload, $token, $fcmToken ): Model {
+    private function loginPayload( $role, $payload, $token, $fcmToken, $autoRegister = true ): Model {
         $user = User::where('email', $payload['email'])->where('role_id', $role)->first();
 
         if( empty($user) ) {
-            $data = new RegisterData( $role, $payload['name'], $payload['email'], null, null, $payload['picture'] );
-            if( isset($payload['email_verified']) ) {
-                if( $payload['email_verified'] == 'true' ) {
-                    $data->emailVerified = true;
+            if( $autoRegister ) {
+                $data = new RegisterData( $role, $payload['name'], $payload['email'], null, null, $payload['picture'] );
+                if( isset($payload['email_verified']) ) {
+                    if( $payload['email_verified'] == 'true' ) {
+                        $data->emailVerified = true;
+                    }
                 }
+                return $this->registerSocial(
+                    $data, $token, $fcmToken, "google", "android"
+                );
             }
-            return $this->registerSocial(
-                $data, $token, $fcmToken, "google", "android"
-            );
         }
 
         return $user;
