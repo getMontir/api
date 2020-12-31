@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function() {
     return redirect('https://getmontir.com');
-});
+})->name('index');
 
 Route::middleware('role')->group(function() {
 

@@ -9,6 +9,7 @@ use App\Repository\Eloquent\RegisterData;
 use App\Repository\Eloquent\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class AuthController extends Controller
 {
@@ -124,7 +125,19 @@ class AuthController extends Controller
         return abort(401);
     }
 
-    public function forgotPassword( Request $request ) {}
+    public function forgotPassword( Request $request ) {
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status->status === Password::RESET_LINK_SENT
+                ? response()->json(['data' => $status->token])
+                : abort(404);
+    }
 
     public function confirmResetPassword( Request $request ) {}
 
