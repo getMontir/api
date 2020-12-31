@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Mechanic\Auth;
 
-use App\Events\Mechanic\StationLoggedIn;
+use App\Events\Mechanic\MechanicLoggedIn;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -21,10 +21,10 @@ class CreateDatabaseLog
     /**
      * Handle the event.
      *
-     * @param  StationLoggedIn  $event
+     * @param  MechanicLoggedIn  $event
      * @return void
      */
-    public function handle(StationLoggedIn $event)
+    public function handle(MechanicLoggedIn $event)
     {
         //
     }

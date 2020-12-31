@@ -42,7 +42,7 @@ class AuthController extends Controller
                 'data' => $token
             ]);
         } catch( UserBannedException $e ) {
-            return abort(410);
+            return abort(410, "User banned");
         }
     }
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
             ]);
         }
 
-        return abort(401);
+        return abort(401, "Bad Request");
     }
 
     public function register( Request $request ) {
@@ -122,7 +122,7 @@ class AuthController extends Controller
             ]);
         }
 
-        return abort(401);
+        return abort(401, "Bad request");
     }
 
     public function forgotPassword( Request $request ) {
@@ -136,7 +136,7 @@ class AuthController extends Controller
 
         return $status->status === Password::RESET_LINK_SENT
                 ? response()->json(['data' => $status->token])
-                : abort(404);
+                : abort(404, "User not found");
     }
 
     public function confirmResetPassword( Request $request ) {
@@ -148,15 +148,15 @@ class AuthController extends Controller
 
         $user = Password::getUser( $request->only('email') );
         if( is_null($user) ) {
-            return abort(401);
+            return abort(401, "Invalid user");
         }
 
         if( !Password::tokenExists( $user, $request->input('token')) ) {
-            return abort(400);
+            return abort(400, "Token not exists");
         }
 
         if( !Password::otpExists( $user, $request->input('otp') ) ) {
-            return abort(404);
+            return abort(404, "Otp not exists");
         }
 
         // $token = Password::createToken( $user );
@@ -190,8 +190,8 @@ class AuthController extends Controller
         return $status == Password::PASSWORD_RESET
                 ? response()->json(['data' => true])
                 : ( $status === Password::INVALID_TOKEN 
-                    ? abort(400)
-                    : abort(404) 
+                    ? abort(400, "Invalid token")
+                    : abort(404, "Token not exists") 
                 );
     }
 
