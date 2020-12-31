@@ -8,9 +8,12 @@ use App\Exceptions\UserBannedException;
 use App\Http\Controllers\Controller;
 use App\Repository\Eloquent\RegisterData;
 use App\Repository\Eloquent\UserRepository;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -160,6 +163,7 @@ class AuthController extends Controller
             return abort(404);
         }
 
+        // $token = Password::createToken( $user );
         $token = $request->input('token');
 
         return response()->json([
@@ -167,6 +171,32 @@ class AuthController extends Controller
         ]);
     }
 
-    public function resetPassword( Request $request ) {}
+    public function resetPassword( Request $request ) {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'token' => 'required|string',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password) use ($request) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->save();
+    
+                $user->setRememberToken(Str::random(60));
+    
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status == Password::PASSWORD_RESET
+                ? response()->json(['data' => true])
+                : ( $status === Password::INVALID_TOKEN 
+                    ? abort(400)
+                    : abort(404) 
+                );
+    }
 
 }

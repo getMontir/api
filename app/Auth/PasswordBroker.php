@@ -37,7 +37,6 @@ class PasswordBroker extends BasePasswordsBroker {
         return new PasswordResetContract( static::RESET_LINK_SENT, $token );
     }
 
-
     public function otpExists(CanResetPassword $user, $otp) {
         $this->tokens->otpExists( $user, $otp );
     }
