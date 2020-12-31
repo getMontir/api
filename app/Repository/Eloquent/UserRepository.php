@@ -152,7 +152,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      * @return null|string
      */
     public function loginCustomer( $email, $password ): ?string {
-        $user = $this->model->where('email', $email)->first();
+        $user = $this->model->where('email', $email)->where('role_id', 4)->first();
         if( !empty($user) ) {
             if( $user->is_banned == 1 ) {
                 throw new UserBannedException();
@@ -171,14 +171,38 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      * @return null|string
      */
     public function loginMechanic( $email, $password ): ?string {
-        return null;
+        $user = $this->model->where('email', $email)->where('role_id', 6)->first();
+        if( !empty($user) ) {
+            if( $user->is_banned == 1 ) {
+                throw new UserBannedException();
+            }
+            
+            if( Hash::check($password, $user->password) ) {
+                return $this->loginCreateToken( $user );
+            }
+
+            return abort(405, 'Credential wrong');
+        }
+        return abort(404, 'Mechanic not found');
     }
 
     /**
      * @return null|string
      */
     public function loginStation( $email, $password ): ?string {
-        return null;
+        $user = $this->model->where('email', $email)->where('role_id', 5)->first();
+        if( !empty($user) ) {
+            if( $user->is_banned == 1 ) {
+                throw new UserBannedException();
+            }
+            
+            if( Hash::check($password, $user->password) ) {
+                return $this->loginCreateToken( $user );
+            }
+
+            return abort(405, 'Credential wrong');
+        }
+        return abort(404, 'Station not found');
     }
 
     /**
@@ -238,7 +262,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     public function registerCustomer( RegisterData $data ): ?string {
         $user = new User();
         $user->role_id = $data->roleId;
-        $user->role_id = $data->roleId;
         $user->picture_id = $data->pictureId;
         $user->name = $data->name;
         $user->email = $data->email;
@@ -265,7 +288,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
      */
     public function registerMechanic( RegisterData $data ): ?string {
         $user = new User();
-        $user->role_id = $data->roleId;
         $user->role_id = $data->roleId;
         $user->picture_id = $data->pictureId;
         $user->name = $data->name;
