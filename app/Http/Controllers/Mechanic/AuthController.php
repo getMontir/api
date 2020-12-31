@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Mechanic;
 
+use App\Auth\Facades\Password;
 use App\Events\Mechanic\MechanicLoggedIn;
 use App\Exceptions\UserBannedException;
 use App\Http\Controllers\Controller;
@@ -121,7 +122,19 @@ class AuthController extends Controller
         return abort(401);
     }
 
-    public function forgotPassword( Request $request ) {}
+    public function forgotPassword( Request $request ) {
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status->status === Password::RESET_LINK_SENT
+                ? response()->json(['data' => $status->token])
+                : abort(404);
+    }
 
     public function confirmResetPassword( Request $request ) {}
 
