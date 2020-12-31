@@ -39,7 +39,25 @@ class UserSeeder extends Seeder
                 'phonenumber' => null,
                 'created_at' => new Carbon(),
                 'updated_at' => new Carbon()
-            ]
+            ],
+            [
+                'role_id' => 5,
+                'name' => 'Station Test',
+                'email' => 'station@getmontir.com',
+                'password' => bcrypt('admin123'),
+                'phonenumber' => null,
+                'created_at' => new Carbon(),
+                'updated_at' => new Carbon()
+            ],
+            [
+                'role_id' => 6,
+                'name' => 'Mechanic Test',
+                'email' => 'mechanic@getmontir.com',
+                'password' => bcrypt('admin123'),
+                'phonenumber' => null,
+                'created_at' => new Carbon(),
+                'updated_at' => new Carbon()
+            ],
         ];
 
         DB::table('users')->insert($data);
