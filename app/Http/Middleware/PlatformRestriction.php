@@ -36,6 +36,6 @@ class PlatformRestriction
             }
         }
 
-        return abort(417);
+        return abort(417, "Platform restriction");
     }
 }
