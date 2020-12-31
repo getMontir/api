@@ -96,7 +96,30 @@ class AuthController extends Controller
         ]);
     }
 
-    public function registerSocial( Request $request ) {}
+    public function registerSocial( Request $request ) {
+        $idToken = $request->input('token');
+        $fcmToken = $request->input('fcm_token');
+        $channel = $request->input('channel');
+        $deviceType = $request->input('device');
+
+        $token = null;
+
+        if( $channel == 'google' ) {
+            $token = $this->userRepo->registerGoogle( $idToken, $fcmToken, 6 );
+        }
+
+        if( $channel == 'facebook' ) {
+            $token = $this->userRepo->registerFacebook( $idToken, $fcmToken, 6 );
+        }
+
+        if( !empty($token) ) {
+            return response()->json([
+                'data' => $token
+            ]);
+        }
+
+        return abort(401);
+    }
 
     public function forgotPassword( Request $request ) {}
 
