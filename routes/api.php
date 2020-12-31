@@ -3,7 +3,7 @@
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CheckUpdateController;
-use App\Http\Controllers\Customer\AuthController;
+use App\Http\Controllers\Customer\AuthController as CustomerAuthController;
 use App\Http\Controllers\Customer\VehicleController as CustomerVehicleController;
 use App\Http\Controllers\Customer\ProfileController as CustomerProfileController;
 use App\Http\Controllers\EmergencyController;
@@ -12,6 +12,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SparepartController;
+use App\Http\Controllers\Station\AuthController as StationAuthController;
 use App\Http\Controllers\VehicleController; 
 use Illuminate\Support\Facades\Route;
 
@@ -91,13 +92,13 @@ Route::middleware('role:customer')->namespace('Customer')->name('customer.')->pr
     /**
      * AUTH
      */
-    Route::post('auth', [ AuthController::class, 'auth' ])->name('auth.login');
-    Route::post('auth/social', [ AuthController::class, 'loginSocial' ])->name('auth.login.social');
-    Route::post('register', [ AuthController::class, 'register' ])->name('auth.register');
-    Route::post('register/social', [ AuthController::class, 'registerSocial' ])->name('auth.register.social');
-    Route::post('password/forgot', [ AuthController::class, 'forgotPassword' ])->name('auth.password.forgot');
-    Route::post('password/forgot/confirm', [ AuthController::class, 'confirmResetPassword' ])->name('auth.password.forgot.confirm');
-    Route::post('password/change', [ AuthController::class, 'resetPassword' ])->name('auth.password.change');
+    Route::post('auth', [ CustomerAuthController::class, 'auth' ])->name('auth.login');
+    Route::post('auth/social', [ CustomerAuthController::class, 'loginSocial' ])->name('auth.login.social');
+    Route::post('register', [ CustomerAuthController::class, 'register' ])->name('auth.register');
+    Route::post('register/social', [ CustomerAuthController::class, 'registerSocial' ])->name('auth.register.social');
+    Route::post('password/forgot', [ CustomerAuthController::class, 'forgotPassword' ])->name('auth.password.forgot');
+    Route::post('password/forgot/confirm', [ CustomerAuthController::class, 'confirmResetPassword' ])->name('auth.password.forgot.confirm');
+    Route::post('password/change', [ CustomerAuthController::class, 'resetPassword' ])->name('auth.password.change');
 
 });
 
@@ -189,11 +190,11 @@ Route::middleware('auth:sanctum')->group(function() {
             /**
              * AUTH
              */
-            Route::post('auth', function() {})->name('auth.login');
-            Route::post('auth/social', function() {})->name('auth.login.social');
-            Route::post('password/forgot', function() {})->name('auth.password.forgot');
-            Route::post('password/forgot/confirm', function() {})->name('auth.password.forgot.confirm');
-            Route::post('password/change', function() {})->name('auth.password.change');
+            Route::post('auth', [ StationAuthController::class, 'auth'])->name('auth.login');
+            Route::post('auth/social', [ StationAuthController::class, 'authSocial'])->name('auth.login.social');
+            Route::post('password/forgot', [ StationAuthController::class, 'forgotPassword' ])->name('auth.password.forgot');
+            Route::post('password/forgot/confirm', [ StationAuthController::class, 'confirmResetPassword' ])->name('auth.password.forgot.confirm');
+            Route::post('password/change', [ StationAuthController::class, 'resetPassword' ])->name('auth.password.change');
 
             /**
              * MECHANIC
