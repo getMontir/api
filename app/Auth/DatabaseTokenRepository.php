@@ -48,4 +48,13 @@ class DatabaseTokenRepository extends DatabaseTokenRepositoryBase {
                ! $this->tokenExpired($record['created_at']) &&
                  $this->hasher->check($token, $record['token']);
     }
+
+    public function otpExists(CanResetPasswordContract $user, $otp) {
+        $record = (array) $this->getTable()
+            ->where('email', $user->getEmailForPasswordReset())
+            ->first();
+        return $record
+                && ! $this->tokenExpired($record['created_at'])
+                && $otp == $record['otp'];
+    }
 }

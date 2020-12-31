@@ -5,6 +5,7 @@ namespace App\Auth;
 use App\Auth\Contracts\PasswordResetContract;
 use Closure;
 use Illuminate\Auth\Passwords\PasswordBroker as BasePasswordsBroker;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 class PasswordBroker extends BasePasswordsBroker {
     /**
@@ -34,5 +35,10 @@ class PasswordBroker extends BasePasswordsBroker {
         }
 
         return new PasswordResetContract( static::RESET_LINK_SENT, $token );
+    }
+
+
+    public function otpExists(CanResetPassword $user, $otp) {
+        $this->tokens->otpExists( $user, $otp );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Customer;
 
+use App\Auth\Facades\Password;
 use App\Events\Customer\CustomerLoggedIn;
 use App\Exceptions\UserBannedException;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,7 @@ use App\Repository\Eloquent\RegisterData;
 use App\Repository\Eloquent\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -139,7 +140,32 @@ class AuthController extends Controller
                 : abort(404);
     }
 
-    public function confirmResetPassword( Request $request ) {}
+    public function confirmResetPassword( Request $request ) {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'token' => 'required|string',
+            'otp' => 'required|numeric|digits:4'
+        ]);
+
+        $user = Password::getUser( $request->only('email') );
+        if( is_null($user) ) {
+            return abort(401);
+        }
+
+        if( !Password::tokenExists( $user, $request->input('token')) ) {
+            return abort(400);
+        }
+
+        if( !Password::otpExists( $user, $request->input('otp') ) ) {
+            return abort(404);
+        }
+
+        $token = $request->input('token');
+
+        return response()->json([
+            'data' => $token
+        ]);
+    }
 
     public function resetPassword( Request $request ) {}
 
