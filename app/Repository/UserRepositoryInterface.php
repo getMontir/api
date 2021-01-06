@@ -12,8 +12,8 @@ interface UserRepositoryInterface {
     public function loginCustomer( $email, $password ): ?string;
     public function loginMechanic( $email, $password ): ?string;
     public function loginStation( $email, $password ): ?string;
-    public function loginGoogle( $token, $fcmToken, $role ): ?string;
-    public function loginFacebook( $token, $fcmToken, $role ): ?string;
+    public function loginGoogle( $token, $fcmToken, $role, $autoRegister = true ): ?string;
+    public function loginFacebook( $token, $fcmToken, $role, $autoRegister = true ): ?string;
     public function registerCustomer( RegisterData $data ): ?string;
     public function registerMechanic( RegisterData $data): ?string;
     public function registerGoogle( $token, $fcmToken, $role ): ?string;

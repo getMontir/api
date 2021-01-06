@@ -61,11 +61,11 @@ class AuthController extends Controller
         $token = null;
 
         if( $channel == 'google' ) {
-            $token = $this->userRepo->loginGoogle( $idToken, $fcmToken, 5 );
+            $token = $this->userRepo->loginGoogle( $idToken, $fcmToken, 5, false );
         }
 
         if( $channel == 'facebook' ) {
-            $token = $this->userRepo->loginFacebook( $idToken, $fcmToken, 5 );
+            $token = $this->userRepo->loginFacebook( $idToken, $fcmToken, 5, false );
         }
 
         if( !empty($token) ) {

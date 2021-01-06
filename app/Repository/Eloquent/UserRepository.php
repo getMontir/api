@@ -56,15 +56,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
 
         if( empty($user) ) {
             if( $autoRegister ) {
-                $data = new RegisterData( $role, $payload['name'], $payload['email'], null, null, $payload['picture'] );
-                if( isset($payload['email_verified']) ) {
-                    if( $payload['email_verified'] == 'true' ) {
-                        $data->emailVerified = true;
+                $find = User::where('email', $payload['email'])->first();
+                if( empty($find) ) {
+                    $data = new RegisterData( $role, $payload['name'], $payload['email'], null, null, $payload['picture'] );
+                    if( isset($payload['email_verified']) ) {
+                        if( $payload['email_verified'] == 'true' ) {
+                            $data->emailVerified = true;
+                        }
                     }
+                    return $this->registerSocial(
+                        $data, $token, $fcmToken, "google", "android"
+                    );
+                } else {
+                    return abort(400);
                 }
-                return $this->registerSocial(
-                    $data, $token, $fcmToken, "google", "android"
-                );
             }
         }
 
@@ -210,7 +215,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     /**
      * @return null|string
      */
-    public function loginGoogle( $token, $fcmToken, $role ): ?string {
+    public function loginGoogle( $token, $fcmToken, $role, $autoRegister = true ): ?string {
         $client = $this->createGoogleClient();
         $payload = $client->verifyIdToken( $token );
 
@@ -218,7 +223,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
             return abort(401, "Invalid credential from google");
         }
 
-        $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
+        $user = $this->loginPayload( $role, $payload, $token, $fcmToken, $autoRegister );
 
         return $this->loginSocial( $user, $token, $fcmToken, "google", "android" );
     }
@@ -226,7 +231,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
     /**
      * @return null|string
      */
-    public function loginFacebook( $token, $fcmToken, $role ): ?string {
+    public function loginFacebook( $token, $fcmToken, $role, $autoRegister = true ): ?string {
         $client = $this->createFacebookClient();
         try {
             $response = $client->get('/me?fields=id,name,email',$token);
@@ -247,7 +252,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface {
                 'email_verified' => 'true'
             ];
 
-            $user = $this->loginPayload( $role, $payload, $token, $fcmToken );
+            $user = $this->loginPayload( $role, $payload, $token, $fcmToken, $autoRegister );
             return $this->loginSocial( $user, $token, $fcmToken, "facebook", "android" );
         } catch( FacebookResponseException $e ) {
             return abort(500, 'Graph returned an error: ' . $e->getMessage());
