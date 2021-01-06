@@ -153,6 +153,6 @@ class AuthController extends Controller
                 'name' => 'Subhan',
                 'phone' => '087820002888'
             ]
-        ])
+        ]);
     }
 }
