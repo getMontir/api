@@ -147,4 +147,12 @@ class AuthController extends Controller
                 );
     }
 
+    public function registerContact() {
+        return response()->json([
+            'data' => [
+                'name' => 'Subhan',
+                'phone' => '087820002888'
+            ]
+        ])
+    }
 }

@@ -120,6 +120,7 @@ Route::middleware('platform:android')->group(function() {
          */
         Route::post('auth', [ StationAuthController::class, 'auth'])->name('auth.login');
         Route::post('auth/social', [ StationAuthController::class, 'authSocial'])->name('auth.login.social');
+        Route::post('register', [ StationAuthController::class, 'registerContact' ])->name('auth.register.contact');
         Route::post('password/forgot', [ StationAuthController::class, 'forgotPassword' ])->name('auth.password.forgot');
         Route::post('password/forgot/confirm', [ StationAuthController::class, 'confirmResetPassword' ])->name('auth.password.forgot.confirm');
         Route::post('password/change', [ StationAuthController::class, 'resetPassword' ])->name('auth.password.change');
